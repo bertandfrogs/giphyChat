@@ -9,7 +9,7 @@ import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
 import	{	environment	}	from	'../environments/environment';
 import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
-export	const	firebaseConfig	=	environment.firebaseConfig;
+const	firebaseConfig	=	environment.firebaseConfig;
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ export	const	firebaseConfig	=	environment.firebaseConfig;
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
