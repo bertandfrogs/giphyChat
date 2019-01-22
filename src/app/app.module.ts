@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
 
+import	{	environment	}	from	'../environments/environment';
+import {AngularFireModule} from "@angular/fire";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
+export	const	firebaseConfig	=	environment.firebaseConfig;
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +19,11 @@ import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
