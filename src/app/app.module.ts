@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthloginComponent } from './authlogin/authlogin.component';
-import { TitlelistComponent } from './titlelist/titlelist.component';
+import { AuthLoginComponent } from './auth-login/auth-login.component';
+import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthloginComponent,
-    TitlelistComponent
+    AuthLoginComponent,
+    GiphyTitlesComponent
   ],
   imports: [
     BrowserModule,
