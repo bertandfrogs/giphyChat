@@ -6,11 +6,9 @@ import { AppComponent } from './app.component';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from '@angular/material';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from "@angular/common/http";
-import { MatToolbarModule,
-         MatButtonModule } from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -24,13 +22,11 @@ import { MatToolbarModule,
     AppRoutingModule,
     HttpClientModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
     MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
