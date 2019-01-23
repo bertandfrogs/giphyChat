@@ -10,6 +10,16 @@ import { HttpClientModule } from "@angular/common/http";
 import { MatToolbarModule,
          MatButtonModule } from "@angular/material";
 
+import	{	environment	}	from	'../environments/environment';
+
+import {APIKeys} from "./api-keys";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {AngularFireAuthModule} from "@angular/fire/auth";
+import {FormsModule} from "@angular/forms";
+
+const firebaseConfig = APIKeys.firebaseConfig;
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,11 +30,18 @@ import { MatToolbarModule,
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AngularFireModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    FormsModule,
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule
+
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
