@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AuthLoginComponent} from './auth-login/auth-login.component';
 import {GiphyTitlesComponent} from './giphy-titles/giphy-titles.component';
+import {ChatComponent} from './chat/chat.component';
 
 const routes: Routes = [
     {
@@ -11,6 +12,9 @@ const routes: Routes = [
     {
       path: 'titles',
       component: GiphyTitlesComponent
+    },
+    { path: 'chat',
+      component: ChatComponent
     },
     { path: '',
         redirectTo: 'login',
