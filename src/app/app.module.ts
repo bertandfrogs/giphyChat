@@ -5,16 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
+import { ChatComponent } from './chat/chat.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLoginComponent,
-    GiphyTitlesComponent
+    GiphyTitlesComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
