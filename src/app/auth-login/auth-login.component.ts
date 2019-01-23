@@ -13,6 +13,10 @@ export class AuthLoginComponent implements OnInit {
   constructor(private db: AuthLoginService) { }
 
   ngOnInit() {
+
+  }
+
+  logIn () {
     this.db.logIn().then( data => {
       this.userId= data.user.email;
       console.log(this.userId);
