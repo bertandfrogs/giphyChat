@@ -7,6 +7,8 @@ import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from "@angular/common/http";
+import { MatToolbarModule,
+         MatButtonModule } from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { HttpClientModule } from "@angular/common/http";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
