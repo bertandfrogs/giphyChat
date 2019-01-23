@@ -6,7 +6,14 @@ import { AppComponent } from './app.component';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatInputModule, MatToolbarModule, MatButtonModule} from '@angular/material';
+import {
+    MatFormFieldModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
+} from '@angular/material';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from "@angular/common/http";
 
@@ -42,7 +49,9 @@ const firebaseConfig = APIKeys.firebaseConfig;
     AppRoutingModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
