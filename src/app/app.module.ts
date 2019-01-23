@@ -12,6 +12,7 @@ import {APIKeys} from "./api-keys";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
+import {FormsModule} from "@angular/forms";
 
 const firebaseConfig = APIKeys.firebaseConfig;
 
@@ -19,7 +20,7 @@ const firebaseConfig = APIKeys.firebaseConfig;
   declarations: [
     AppComponent,
     AuthLoginComponent,
-    GiphyTitlesComponent
+    GiphyTitlesComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +29,8 @@ const firebaseConfig = APIKeys.firebaseConfig;
     AngularFirestoreModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+      FormsModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]
