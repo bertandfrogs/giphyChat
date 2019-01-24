@@ -5,4 +5,17 @@
   <span class="toolbar" [routerLink]="['/profile']"><a>Profile</a></span>
 </mat-toolbar>
 
-<div>User Profile</div>
+<mat-card class="profile">
+  <mat-card-header>
+    <mat-card-title>Current user: {{person.displayName}}</mat-card-title>
+    <mat-card-subtitle>{{person.email}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="content">
+    <div>
+      <img [src]="person.photoURL">
+    </div>
+  </mat-card-content>
+  <div id="button-container">
+    <button mat-raised-button color="primary" (click)="logOut()">Sign Out</button>
+  </div>
+</mat-card>
