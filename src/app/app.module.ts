@@ -5,10 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+    MatFormFieldModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule
+} from '@angular/material';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from "@angular/common/http";
-import { MatToolbarModule,
-         MatButtonModule } from "@angular/material";
 
 import	{	environment	}	from	'../environments/environment';
 
@@ -17,15 +27,7 @@ import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FormsModule} from "@angular/forms";
-import {
-  MatCardModule,
-  MatCheckboxModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatRadioModule,
-  MatSelectModule
-} from '@angular/material';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const firebaseConfig = APIKeys.firebaseConfig;
 
@@ -34,7 +36,8 @@ const firebaseConfig = APIKeys.firebaseConfig;
     AppComponent,
     AuthLoginComponent,
     GiphyTitlesComponent,
-    ChatComponent
+    ChatComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -48,17 +51,18 @@ const firebaseConfig = APIKeys.firebaseConfig;
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
-    MatInputModule,
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatButtonModule,
     MatCardModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
     MatFormFieldModule,
-    BrowserAnimationsModule
-
+    MatInputModule,
+    MatIconModule,
+    MatCardModule
   ],
-  providers: [ ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
