@@ -17,6 +17,15 @@ import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FormsModule} from "@angular/forms";
+import {
+  MatCardModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRadioModule,
+  MatSelectModule
+} from '@angular/material';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const firebaseConfig = APIKeys.firebaseConfig;
 
@@ -38,7 +47,15 @@ const firebaseConfig = APIKeys.firebaseConfig;
     FormsModule,
     HttpClientModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule
 
   ],
   providers: [ ],
