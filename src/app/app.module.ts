@@ -24,6 +24,7 @@ import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FormsModule} from "@angular/forms";
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const firebaseConfig = APIKeys.firebaseConfig;
 
@@ -32,7 +33,8 @@ const firebaseConfig = APIKeys.firebaseConfig;
     AppComponent,
     AuthLoginComponent,
     GiphyTitlesComponent,
-    ChatComponent
+    ChatComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
