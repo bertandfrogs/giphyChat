@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="stickytoolbar">
     <span class="toolbar" [routerLink]="['/login']"><a>Switch Accounts</a></span>
     <span class="toolbar" [routerLink]="['/titles']"><a>Select A Chat</a></span>
     <span class="toolbar" [routerLink]="['/chat']"><a>Chat</a></span>
@@ -6,4 +6,25 @@
 
 </mat-toolbar>
 
-<img src="{{info?.data[1].images.downsized.url}}">
+<div class="deliverTo"><h1>Chat with {{this.current.deliverto}}</h1></div>
+
+<div class="secondary">
+
+    <div class="messages">
+        <ng-container *ngFor="let gif of this.current.conversationdata">
+            <div class="messagefield" id="{{gif.toOrfrom}}"><h6>{{gif.date | date:'medium'}}</h6><img src="{{gif.url}}" alt="{{searchterm}}" class="gif"></div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="fixed wrapper">
+<mat-card class="whitecard">
+<form (ngSubmit)="submit()" #empForm="ngForm">
+        <mat-form-field>
+            <input class="chatinput" matInput name="firstName" [(ngModel)]="input" />
+        </mat-form-field>
+    <button mat-raised-button color="primary" class="submit" >Send</button>
+</form>
+</mat-card>
+</div>
+
