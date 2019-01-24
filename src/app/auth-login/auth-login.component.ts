@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 export class AuthLoginComponent implements OnInit {
 
   x = new CurrentUserData("", {});
-  userId;
+  person;
   constructor(private db: AuthLoginService,
               private zone: NgZone,
               private router: Router) { }
@@ -23,9 +23,10 @@ export class AuthLoginComponent implements OnInit {
   logIn () {
     this.db.logIn().then( data => {
       this.zone.run(()=>{
-        this.userId= data.user.email;
-        console.log(this.userId);
+        this.person= data.user;
+        console.log(this.person.email);
         this.router.navigate(['/titles']);
+        this.db.userName = this.person;
       });
     } );
   }

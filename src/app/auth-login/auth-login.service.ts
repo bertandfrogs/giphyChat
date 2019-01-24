@@ -8,7 +8,7 @@ import { CurrentUserData} from "../current-user-data";
   providedIn: 'root'
 })
 export class AuthLoginService {
-
+  userName;
   constructor(public afAuth: AngularFireAuth) { }
 
   logIn () {
@@ -18,7 +18,7 @@ export class AuthLoginService {
   }
 
   logOut () {
-    this.afAuth.auth.signOut()
+    return this.afAuth.auth.signOut()
   }
 
 
