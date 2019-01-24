@@ -12,4 +12,7 @@ export class GiphyTitlesComponent implements OnInit {
   ngOnInit() {
   }
 
+  addChat(){
+    console.log("add chat");
+  }
 }
