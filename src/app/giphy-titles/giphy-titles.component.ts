@@ -6,13 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./giphy-titles.component.css']
 })
 export class GiphyTitlesComponent implements OnInit {
-
+  chatList = [];
+  noContentInList = true;
   constructor() { }
 
   ngOnInit() {
   }
 
   addChat(){
-    console.log("add chat");
+    this.chatList.push({name: "Chat Name"});
+    this.noContentInList = false;
+  }
+
+  deleteChat() {
+      console.log("delete chat");
   }
 }

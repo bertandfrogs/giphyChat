@@ -4,9 +4,10 @@
   <span class="toolbar" [routerLink]="['/chat']"><a>Chat</a></span>
   <span class="toolbar" [routerLink]="['/profile']"><a>Profile</a></span>
 </mat-toolbar>
-
-<mat-card><h4>Chat Name</h4><p>Chat text</p></mat-card>
-<mat-card><h4>Chat Name</h4><p>Chat text</p></mat-card>
-<mat-card><h4>Chat Name</h4><p>Chat text</p></mat-card>
-
+<div *ngFor="let chat of chatList">
+  <mat-card *ngIf="contentInList">You don't have any chats. Click 'Add a new chat' to get started!</mat-card>
+  <mat-card class="chatCard"><h4>{{chat.name}}</h4></mat-card>
+</div>
 <button mat-raised-button (click)="addChat()">Add a new chat</button>
+<button mat-raised-button (click)="deleteChat()">Delete a chat</button>
+
