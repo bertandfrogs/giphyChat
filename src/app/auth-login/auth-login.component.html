@@ -1,6 +1,12 @@
-<h1>the user email is: {{userId}}</h1>
 
-<button (click)="logIn()">click me</button>
+<mat-card class="container" xmlns="http://www.w3.org/1999/html">
+  <div>
+    <h1>Welcome to Giphy</h1>
+  </div>
+  <div class="button-wrapper">
+    <button (click)="logIn()" mat-raised-button >login with <img src="../../assets/images/google-icon.jpg" id="google-login"></button>
+  </div>
+</mat-card>
 
-<button mat-button [routerLink]="['/titles']"><a>Continue To Chats (temporary)</a></button>
+<p>this is the angular group project for Mtech</p>
 

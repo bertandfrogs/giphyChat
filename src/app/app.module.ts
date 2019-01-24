@@ -26,6 +26,7 @@ import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FormsModule} from "@angular/forms";
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
+
 const firebaseConfig = APIKeys.firebaseConfig;
 
 @NgModule({
