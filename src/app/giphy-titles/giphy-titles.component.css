@@ -15,4 +15,16 @@
 }
 .chatCard{
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chatCard p{
+    padding: 5px;
+    margin: 0;
+}
+
+.trash{
+    font-size: 20px;
 }
