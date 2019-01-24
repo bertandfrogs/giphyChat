@@ -1,6 +1,7 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {AuthLoginService} from "./auth-login.service";
 import {CurrentUserData} from "../current-user-data";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-auth-login',
@@ -12,7 +13,8 @@ export class AuthLoginComponent implements OnInit {
   x = new CurrentUserData("", {});
   userId;
   constructor(private db: AuthLoginService,
-              private zone: NgZone) { }
+              private zone: NgZone,
+              private router: Router) { }
 
   ngOnInit() {
 
@@ -23,6 +25,7 @@ export class AuthLoginComponent implements OnInit {
       this.zone.run(()=>{
         this.userId= data.user.email;
         console.log(this.userId);
+        this.router.navigate(['/titles']);
       });
     } );
   }
