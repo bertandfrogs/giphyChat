@@ -9,7 +9,7 @@ import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from "@angular/common/http";
 import {
   MatToolbarModule,
-  MatButtonModule, MatCardModule
+  MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule
 } from "@angular/material";
 
 import	{	environment	}	from	'../environments/environment';
@@ -19,6 +19,7 @@ import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const firebaseConfig = APIKeys.firebaseConfig;
 
@@ -41,6 +42,11 @@ const firebaseConfig = APIKeys.firebaseConfig;
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
     MatCardModule
 
   ],
