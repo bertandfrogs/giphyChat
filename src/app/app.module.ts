@@ -7,8 +7,10 @@ import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { GiphyTitlesComponent } from './giphy-titles/giphy-titles.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from "@angular/common/http";
-import { MatToolbarModule,
-         MatButtonModule } from "@angular/material";
+import {
+  MatToolbarModule,
+  MatButtonModule, MatCardModule
+} from "@angular/material";
 
 import	{	environment	}	from	'../environments/environment';
 
@@ -38,7 +40,8 @@ const firebaseConfig = APIKeys.firebaseConfig;
     FormsModule,
     HttpClientModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
 
   ],
   providers: [ ],

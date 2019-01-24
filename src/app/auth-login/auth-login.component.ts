@@ -8,6 +8,7 @@ import {CurrentUserData} from "../current-user-data";
   styleUrls: ['./auth-login.component.css']
 })
 export class AuthLoginComponent implements OnInit {
+
   x = new CurrentUserData("", {});
   userId;
   constructor(private db: AuthLoginService,
