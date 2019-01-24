@@ -1,3 +1,18 @@
 .toolbar{
      margin-right: 20px;
  }
+
+.noContent{
+    padding: 20px;
+}
+
+.buttons{
+    display: flex;
+}
+
+.addDelete{
+    margin: 5px;
+}
+.chatCard{
+    padding: 20px;
+}
