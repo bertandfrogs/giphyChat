@@ -1,26 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import {MatDialog} from "@angular/material";
+import {DialogComponent} from "./dialog/dialog.component";
 
 @Component({
   selector: 'app-giphy-titles',
   templateUrl: './giphy-titles.component.html',
   styleUrls: ['./giphy-titles.component.css']
 })
-export class GiphyTitlesComponent implements OnInit {
+export class GiphyTitlesComponent {
   chatList = [];
   noContentInList = true;
   deleteToggle = false;
   id=0;
-  constructor() { }
 
-  ngOnInit() {
-  }
+  chatName: string;
+  chatMembers: string[];
+  constructor(public dialog: MatDialog) { }
 
   addChat(){
     this.unDelete();
-    this.chatList.push({name: "Chat Name", id: this.id});
+    this.openDialog();
     this.noContentInList = false;
     this.id++;
-
   }
 
   deleteChat() {
@@ -40,5 +41,20 @@ export class GiphyTitlesComponent implements OnInit {
     if(this.chatList[0] === null){
         this.noContentInList = true;
     }
+  }
+
+  openDialog(): void{
+    const dialogRef = this.dialog.open(DialogComponent,{
+      width: '250px',
+        data: {chatName: this.chatName, chatMembers: this.chatMembers}
+    });
+
+    dialogRef.afterClosed().subscribe( result =>{
+        console.log("dialog closed");
+        this.chatName = result;
+        this.chatList.push({name: this.chatName, id: this.id});
+      }
+    );
+
   }
 }
