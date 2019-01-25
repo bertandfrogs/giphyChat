@@ -1,6 +1,9 @@
 .toolbar{
      margin-right: 20px;
  }
+.wrapper{
+    padding: 20px;
+}
 
 .noContent{
     padding: 20px;
@@ -15,9 +18,11 @@
 }
 .chatCard{
     padding: 20px;
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 80%;
 }
 
 .chatCard p{
