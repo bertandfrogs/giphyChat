@@ -25,7 +25,7 @@ export class AuthLoginComponent implements OnInit {
       this.zone.run(()=>{
         this.person= data.user;
         console.log(this.person.email);
-        this.router.navigate(['/titles']);
+        this.router.navigate(['/list']);
         this.db.userName = this.person;
       });
     } );
