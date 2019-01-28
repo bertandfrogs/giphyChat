@@ -15,7 +15,7 @@ import {
     MatCardModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule, MatDialogModule
 } from '@angular/material';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from "@angular/common/http";
@@ -28,7 +28,9 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FormsModule} from "@angular/forms";
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { DialogComponent } from './giphy-titles/dialog/dialog.component';
 import { AngularFireDatabase } from 'angularfire2/database';
+
 
 const firebaseConfig = APIKeys.firebaseConfig;
 
@@ -38,7 +40,8 @@ const firebaseConfig = APIKeys.firebaseConfig;
     AuthLoginComponent,
     GiphyTitlesComponent,
     ChatComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,9 +65,11 @@ const firebaseConfig = APIKeys.firebaseConfig;
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }

@@ -11,7 +11,7 @@ const routes: Routes = [
       component: AuthLoginComponent
     },
     {
-      path: 'titles',
+      path: 'list',
       component: GiphyTitlesComponent
     },
     { path: 'chat',

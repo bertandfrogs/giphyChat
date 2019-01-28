@@ -51,10 +51,15 @@ export class GiphyTitlesComponent {
 
     dialogRef.afterClosed().subscribe( result =>{
         console.log("dialog closed");
+        console.log(result);
         this.chatName = result;
         this.chatList.push({name: this.chatName, id: this.id});
       }
     );
+
+  }
+
+  goToChat(id: number) {
 
   }
 }

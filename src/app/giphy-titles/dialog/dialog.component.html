@@ -1,15 +1,12 @@
 <mat-dialog-content>
-  <p>Enter the name of your new chat.</p>
-  <mat-form-field>
-    <input matInput required [(ngModel)]="data.chatName">
-  </mat-form-field>
-  <!--<p>Add a chat member</p>-->
-  <!--<mat-form-field>-->
-    <!--<input matInput required [(ngModel)]="data.chatMembers">-->
-  <!--</mat-form-field>-->
+    <p>Enter the name of your new chat.</p>
+    <mat-form-field>
+        <input matInput required [(ngModel)]="data.chatName">
+    </mat-form-field>
 </mat-dialog-content>
 
+
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data.chatName" cdkFocusInitial>Ok</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.chatName">Ok</button>
 </div>
