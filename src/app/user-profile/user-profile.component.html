@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <span class="toolbar" [routerLink]="['/login']"><a>Switch Accounts</a></span>
+  <span class="toolbar" [routerLink]="['/titles']"><a>Select A Chat</a></span>
+  <span class="toolbar" [routerLink]="['/chat']"><a>Chat</a></span>
+  <span class="toolbar" [routerLink]="['/profile']"><a>Profile</a></span>
+</mat-toolbar>
+
+<mat-card class="profile">
+  <mat-card-header>
+    <mat-card-title>Current user: {{person.displayName}}</mat-card-title>
+    <mat-card-subtitle>{{person.email}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="content">
+    <div>
+      <img [src]="person.photoURL">
+    </div>
+  </mat-card-content>
+  <div id="button-container">
+    <button mat-raised-button color="primary" (click)="logOut()">Sign Out</button>
+  </div>
+</mat-card>

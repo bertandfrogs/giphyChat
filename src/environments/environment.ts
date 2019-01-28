@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebaseConfig : {
-    apiKey: "AIzaSyD7YK551emW2quKu_AOoHReJLrtWxOoMRU",
-    authDomain: "giphy-project-1484d.firebaseapp.com",
-    databaseURL: "https://giphy-project-1484d.firebaseio.com",
-    projectId: "giphy-project-1484d",
-    storageBucket: "giphy-project-1484d.appspot.com",
-    messagingSenderId: "84593899551"
+    apiKey: 'AIzaSyDmk3m2IncZWnnhUOfw4moRX9nAN0z0108',
+    authDomain: 'giphy-firestore.firebaseapp.com',
+    databaseURL: 'https://giphy-firestore.firebaseio.com',
+    projectId: 'giphy-firestore',
+    storageBucket: '',
+    messagingSenderId: '711395514250'
   }
 };
 
