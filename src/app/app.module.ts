@@ -29,6 +29,8 @@ import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FormsModule} from "@angular/forms";
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DialogComponent } from './giphy-titles/dialog/dialog.component';
+import { AngularFireDatabase } from 'angularfire2/database';
+
 
 const firebaseConfig = APIKeys.firebaseConfig;
 
@@ -49,6 +51,7 @@ const firebaseConfig = APIKeys.firebaseConfig;
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+      AngularFireDatabase,
     FormsModule,
     HttpClientModule,
     MatToolbarModule,
