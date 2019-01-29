@@ -11,6 +11,7 @@ export class AngularFireService {
 
   users: Observable<any[]>;
   currentUserInfo = {};
+  currentDocumentKey: string;
 
   constructor( private db: AngularFireDatabase,
                private afs: AngularFirestore,
@@ -25,7 +26,7 @@ export class AngularFireService {
     this.afs.collection('users').get().subscribe(documents => {
 
       documents.forEach(doc => {
-        console.log(doc.data())
+        console.log(doc.data());
 
         ref = doc.data();
 
@@ -34,7 +35,7 @@ export class AngularFireService {
 
           if (data == ref.id && userFound == false) {
 
-            console.log("match has been found")
+            console.log("match has been found");
 
             //gets data from the user
             userFound = true;
@@ -43,6 +44,7 @@ export class AngularFireService {
             //logs user in
             //sets current users info
             this.currentUserInfo = ref;
+            this.currentDocumentKey = doc.id;
             console.log(this.currentUserInfo)
           }
       });
@@ -58,7 +60,12 @@ export class AngularFireService {
     })
   }
 
-  addChatArray(){
+  addChatArray(chats){
+    this.afs.collection('users').doc(this.currentDocumentKey).update({chats: [{title: chats, conversation: []}]});
+    console.log(this.currentUserInfo);
+  }
+
+  getPastChats(){
 
   }
 
@@ -66,6 +73,4 @@ export class AngularFireService {
 
   }
 
-
-  
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {DialogComponent} from "./dialog/dialog.component";
+import {AngularFireService} from "../angular-fire.service";
 
 @Component({
   selector: 'app-giphy-titles',
@@ -17,8 +18,13 @@ export class GiphyTitlesComponent {
 
   chatName: string;
   chatMembers: string[];
-  constructor(public dialog: MatDialog) { }
+  conversation: string[];
 
+  constructor(public dialog: MatDialog, public fireService: AngularFireService) { }
+
+  loadChats(){
+    this.fireService.getPastChats();
+  }
 
   addChat(){
     this.unDelete();
@@ -53,10 +59,9 @@ export class GiphyTitlesComponent {
     });
 
     dialogRef.afterClosed().subscribe( result =>{
-        console.log("dialog closed");
-        console.log(result);
         this.chatName = result;
         this.chatList.push({name: this.chatName, id: this.id});
+        this.fireService.addChatArray(this.chatList);
       }
     );
 
