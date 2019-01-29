@@ -18,7 +18,6 @@ import {
     MatSelectModule,
     MatDialogModule
 } from '@angular/material';
-import { ChatComponent } from './chat/chat.component';
 
 import	{	environment	}	from	'../environments/environment';
 

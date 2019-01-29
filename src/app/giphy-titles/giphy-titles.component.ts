@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {DialogComponent} from "./dialog/dialog.component";
 
@@ -8,17 +8,17 @@ import {DialogComponent} from "./dialog/dialog.component";
   styleUrls: ['./giphy-titles.component.css']
 })
 
-export class GiphyTitlesComponent implements OnInit {
+export class GiphyTitlesComponent {
   chatList = [];
   noContentInList = true;
   deleteToggle = false;
   id=0;
 
-  constructor() { }
 
   chatName: string;
   chatMembers: string[];
   constructor(public dialog: MatDialog) { }
+
 
   addChat(){
     this.unDelete();
