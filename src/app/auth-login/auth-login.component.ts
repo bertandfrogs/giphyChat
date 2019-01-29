@@ -32,7 +32,7 @@ export class AuthLoginComponent implements OnInit {
       this.zone.run(()=>{
         this.person = this.afAuth.auth.currentUser;
         console.log(this.person);
-        this.router.navigate(['/titles']);
+        this.router.navigate(['/list']);
         this.db.userName = this.person;
         this.x.id = this.person.displayName;
         console.log(this.x.id);
