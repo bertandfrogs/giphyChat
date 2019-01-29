@@ -21,7 +21,7 @@ export class AuthLoginService {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(
         user => {
 
-          this.router.navigate(['/titles'])
+          this.router.navigate(['/list'])
         }
     );
   }
