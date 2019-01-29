@@ -18,7 +18,6 @@ import {
     MatSelectModule,
     MatDialogModule
 } from '@angular/material';
-import { ChatComponent } from './chat/chat.component';
 
 import	{	environment	}	from	'../environments/environment';
 
@@ -32,9 +31,8 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FormsModule} from "@angular/forms";
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { DialogComponent } from './giphy-titles/dialog/dialog.component';
 import { AngularFireDatabase } from 'angularfire2/database';
-
+import { DialogComponent } from './giphy-titles/dialog/dialog.component';
 
 const firebaseConfig = environment.firebaseConfig;
 
