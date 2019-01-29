@@ -7,11 +7,14 @@ import {DialogComponent} from "./dialog/dialog.component";
   templateUrl: './giphy-titles.component.html',
   styleUrls: ['./giphy-titles.component.css']
 })
-export class GiphyTitlesComponent {
+
+export class GiphyTitlesComponent implements OnInit {
   chatList = [];
   noContentInList = true;
   deleteToggle = false;
   id=0;
+
+  constructor() { }
 
   chatName: string;
   chatMembers: string[];
@@ -42,7 +45,7 @@ export class GiphyTitlesComponent {
         this.noContentInList = true;
     }
   }
-
+  
   openDialog(): void{
     const dialogRef = this.dialog.open(DialogComponent,{
       width: '250px',
