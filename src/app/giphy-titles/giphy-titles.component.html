@@ -1,24 +1,30 @@
 <mat-toolbar color="primary">
   <span class="toolbar" [routerLink]="['/login']"><a>Switch Accounts</a></span>
-  <span class="toolbar" [routerLink]="['/titles']"><a>Select A Chat</a></span>
+  <span class="toolbar" [routerLink]="['/list']"><a>Select A Chat</a></span>
   <span class="toolbar" [routerLink]="['/chat']"><a>Chat</a></span>
   <span class="toolbar" [routerLink]="['/profile']"><a>Profile</a></span>
 </mat-toolbar>
 
-<div class="buttons">
-  <button mat-raised-button class="addDelete" (click)="addChat()">Add a new chat</button>
-  <button mat-raised-button *ngIf="!deleteToggle" class="addDelete" (click)="deleteChat()">Delete a chat</button>
-  <button mat-raised-button *ngIf="deleteToggle" class="addDelete" (click)="unDelete()">Done</button>
-</div>
 
-<div *ngFor="let chat of chatList" class="chatList">
-  <mat-card class="chatCard">
-    <mat-icon class="trash" *ngIf="deleteToggle" (click)="deleteThis(chat.id)">delete</mat-icon>
-    <p>{{chat.name}}</p>
-  </mat-card>
-</div>
+<div class="wrapper">
+  <div class="buttons">
+    <button mat-raised-button class="addDelete" (click)="addChat()">Add a new chat</button>
+    <button mat-raised-button
+            *ngIf="!deleteToggle"
+            class="addDelete"
+            (click)="deleteChat()">Delete a chat
+    </button>
+    <button mat-raised-button *ngIf="deleteToggle" class="addDelete" (click)="unDelete()">Done</button>
+  </div>
 
-<div *ngIf="noContentInList">
-  <h4 class="noContent">You don't have any chats. Click 'Add a new chat' to get started!</h4>
-</div>
+  <div *ngFor="let chat of chatList" class="chatList">
+    <mat-card class="chatCard">
+      <mat-icon class="trash" *ngIf="deleteToggle" (click)="deleteThis(chat.id)">delete</mat-icon>
+      <p (click)="goToChat(chat.id)">{{chat.name}}</p>
+    </mat-card>
+  </div>
 
+  <div *ngIf="noContentInList">
+    <h4 class="noContent">You don't have any chats. Click 'Add a new chat' to get started!</h4>
+  </div>
+</div>

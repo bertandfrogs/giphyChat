@@ -1,0 +1,12 @@
+<mat-dialog-content>
+    <p>Enter the name of your new chat.</p>
+    <mat-form-field>
+        <input matInput required [(ngModel)]="data.chatName">
+    </mat-form-field>
+</mat-dialog-content>
+
+
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.chatName">Ok</button>
+</div>

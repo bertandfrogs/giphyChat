@@ -5,12 +5,14 @@ import {Router} from "@angular/router";
 import {AngularFireService} from '../angular-fire.service';
 import {AngularFireAuth} from "@angular/fire/auth";
 
+
 @Component({
   selector: 'app-auth-login',
   templateUrl: './auth-login.component.html',
   styleUrls: ['./auth-login.component.css']
 })
 export class AuthLoginComponent implements OnInit {
+
 
   x = new CurrentUserData('', {});
   person;
@@ -36,6 +38,7 @@ export class AuthLoginComponent implements OnInit {
         console.log(this.x.id);
 
         this.ab.getUser(this.x.id);
+
       });
     });
   }

@@ -16,6 +16,7 @@ export class AuthLoginService {
               private router: Router
               ) { }
 
+
   logIn () {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(
         user => {

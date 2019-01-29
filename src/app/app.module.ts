@@ -15,19 +15,26 @@ import {
     MatCardModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
 } from '@angular/material';
 import { ChatComponent } from './chat/chat.component';
-import { HttpClientModule } from '@angular/common/http';
 
 import	{	environment	}	from	'../environments/environment';
 
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {FormsModule} from '@angular/forms';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AngularFireDatabaseModule} from '@angular/fire/database';
+import { ChatComponent } from './chat/chat.component';
+import { HttpClientModule } from "@angular/common/http";
+
+import {APIKeys} from "./api-keys";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {AngularFireAuthModule} from "@angular/fire/auth";
+import {FormsModule} from "@angular/forms";
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { DialogComponent } from './giphy-titles/dialog/dialog.component';
+import { AngularFireDatabase } from 'angularfire2/database';
+
 
 const firebaseConfig = environment.firebaseConfig;
 
@@ -37,7 +44,8 @@ const firebaseConfig = environment.firebaseConfig;
     AuthLoginComponent,
     GiphyTitlesComponent,
     ChatComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +55,10 @@ const firebaseConfig = environment.firebaseConfig;
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+
       AngularFireDatabaseModule,
       FormsModule,
+      AngularFireDatabase,
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
@@ -57,12 +67,15 @@ const firebaseConfig = environment.firebaseConfig;
     MatSelectModule,
     MatCardModule,
     AppRoutingModule,
+
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }
