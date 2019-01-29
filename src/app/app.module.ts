@@ -46,6 +46,7 @@ const firebaseConfig = environment.firebaseConfig;
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AngularFireModule,
     AngularFirestoreModule,
