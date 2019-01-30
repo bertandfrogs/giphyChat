@@ -36,9 +36,7 @@ export class AuthLoginComponent implements OnInit {
         this.db.userName = this.person;
         this.x.id = this.person.displayName;
         console.log(this.x.id);
-
         this.ab.getUser(this.x.id);
-
       });
     });
   }

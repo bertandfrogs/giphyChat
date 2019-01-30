@@ -4,6 +4,9 @@ import { Conversation} from "../conversation";
 import { DatePipe} from "@angular/common";
 import {AngularFireService} from "../angular-fire.service";
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
+import {Router} from "@angular/router";
+import { AngularFireAuth} from "@angular/fire/auth";
+
 
 @Component({
   selector: 'app-chat',
@@ -23,27 +26,32 @@ export class ChatComponent implements OnInit {
 
       []
 
-  )
+  );
 
   constructor(private giphyservice: GiphyapiService,
                 private db: AngularFireService,
-                private afs: AngularFirestore) {
-
-  }
+                private afs: AngularFirestore,
+                private afAuth: AngularFireAuth, 
+                private router: Router) {
 
   ngOnInit() {
 
-      this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
-          this.info = info;
-          console.log(info);
+      if(!this.afAuth.auth.currentUser){
+          this.router.navigate(['/login']);
+          console.log(this.afAuth.auth.currentUser);
+      }
+      else{
+          this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
+              this.info = info;
+              console.log(info);
 
-      })
-      console.log(this.current.conversationdata);
-
-      this.afs.collection('conversations').doc(this.db.getCurrentUserID()).ref.get().then(function(doc) {
-          this.conversation = doc.data();
-      });
-
+          });
+          console.log(this.current.conversationdata);
+        
+          this.afs.collection('conversations').doc(this.db.getCurrentUserID()).ref.get().then(function(doc) {
+              this.conversation = doc.data();
+          });
+      }
   }
 
 
