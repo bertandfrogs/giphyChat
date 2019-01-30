@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GiphyapiService } from '../giphyapi.service'
 import { Conversation} from "../conversation";
 import { DatePipe} from "@angular/common";
+import {AngularFireService} from "../angular-fire.service";
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
 
 @Component({
   selector: 'app-chat',
@@ -11,8 +13,9 @@ import { DatePipe} from "@angular/common";
 export class ChatComponent implements OnInit {
 
   info;
-  searchterm = "crepe";
+  searchterm = "";
   input = "";
+  conversation;
 
   current = new Conversation(
 
@@ -22,15 +25,25 @@ export class ChatComponent implements OnInit {
 
   )
 
-  constructor(private giphyservice: GiphyapiService) { }
+  constructor(private giphyservice: GiphyapiService,
+                private db: AngularFireService,
+                private afs: AngularFirestore) {
+
+  }
 
   ngOnInit() {
+
       this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
           this.info = info;
           console.log(info);
 
       })
-      console.log(this.current.conversationdata)
+      console.log(this.current.conversationdata);
+
+      this.afs.collection('conversations').doc(this.db.getCurrentUserID()).ref.get().then(function(doc) {
+          this.conversation = doc.data();
+      });
+
   }
 
 
@@ -50,6 +63,13 @@ export class ChatComponent implements OnInit {
           })
 
       })
+
+
+      console.log(this.current)
+      this.db.addChats(this.current)
+
+
+
 
   }
 
