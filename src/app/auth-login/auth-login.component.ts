@@ -37,8 +37,6 @@ export class AuthLoginComponent implements OnInit {
         this.x.id = this.person.displayName;
         console.log(this.x.id);
         this.ab.getUser(this.x.id);
-          this.ab.getPastChats();
-
       });
     });
   }

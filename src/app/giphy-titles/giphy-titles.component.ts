@@ -23,12 +23,15 @@ export class GiphyTitlesComponent implements OnInit{
   chatMembers: string[];
   conversation: string[];
 
-  constructor(public dialog: MatDialog, public fireService: AngularFireService, private afAuth: AngularFireAuth, private router: Router) { }
+  constructor(public dialog: MatDialog, public fireService: AngularFireService, private afAuth: AngularFireAuth, private router: Router, private ab: AngularFireService) { }
 
   ngOnInit(){
     if(!this.afAuth.auth.currentUser){
         this.router.navigate(['/login']);
         console.log(this.afAuth.auth.currentUser);
+    }
+    else{
+        this.ab.getPastChats();
     }
   }
 

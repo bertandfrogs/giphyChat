@@ -17,7 +17,6 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     if(!this.afAuth.auth.currentUser){
         this.router.navigate(['/login']);
-        console.log(this.afAuth.auth.currentUser);
     }
     else{
       this.person = this.afAuth.auth.currentUser;
