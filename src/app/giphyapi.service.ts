@@ -13,7 +13,7 @@ export class GiphyapiService {
 
   constructor(private http:HttpClient,
               private afs: AngularFirestore) {}
-    private url = `https://api.giphy.com/v1/gifs/search?q=`
+    private url = `https://api.giphy.com/v1/gifs/search?q=`;
     private url2 = `&api_key=pU7mSFwd4cRwC7wIBd6D3e7sBKabBRzQ`;
 
 
