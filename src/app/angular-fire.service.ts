@@ -31,10 +31,10 @@ export class AngularFireService {
 
         ref = doc.data();
 
-        console.log(ref.id + " is the cloud user id");
+        console.log(ref.uid + " is the cloud user id");
         console.log(data + " is the local user id");
 
-          if (data == ref.id && userFound == false) {
+          if (data == ref.uid && userFound == false) {
 
             console.log("match has been found");
 
@@ -53,12 +53,12 @@ export class AngularFireService {
       if (userFound == false) {
         //push user to firestore
         console.log(data);
-        this.afs.collection('users').add({id: data, chats: []});
+        this.afs.collection('users').add({email: "email", firstName: "name", hex: "data", imageUrl: "data", lastName: "data", uid: data});
         console.log("user not detected");
         console.log('created user');
       }
 
-    })
+    });
   }
 
   addChatArray(chats){
@@ -66,9 +66,10 @@ export class AngularFireService {
   }
 
   getPastChats(){
+    console.log(this.currentDocumentKey);
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe( document => {
-      console.log(document);
-      console.log(document.data());
+      console.log("document: " + document);
+      console.log("document.data(): " + document.data());
     })
   }
 
