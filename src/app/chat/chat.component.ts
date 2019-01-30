@@ -32,9 +32,9 @@ export class ChatComponent implements OnInit {
                 private db: AngularFireService,
                 private afs: AngularFirestore,
                 private afAuth: AngularFireAuth, 
-                private router: Router) {
+                private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(){
 
       if(!this.afAuth.auth.currentUser){
           this.router.navigate(['/login']);
@@ -70,11 +70,11 @@ export class ChatComponent implements OnInit {
               date:new Date()
           })
 
-      })
+      });
 
 
-      console.log(this.current)
-      this.db.addChats(this.current)
+      console.log(this.current);
+      this.db.addChats(this.current);
 
 
 
@@ -82,3 +82,4 @@ export class ChatComponent implements OnInit {
   }
 
 }
+
