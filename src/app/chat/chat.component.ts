@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GiphyapiService } from '../giphyapi.service'
 import { Conversation} from "../conversation";
 import { DatePipe} from "@angular/common";
+import {Router} from "@angular/router";
+import { AngularFireAuth} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-chat',
@@ -20,17 +22,24 @@ export class ChatComponent implements OnInit {
 
       []
 
-  )
+  );
 
-  constructor(private giphyservice: GiphyapiService) { }
+  constructor(private giphyservice: GiphyapiService, private afAuth: AngularFireAuth, private router: Router) { }
 
   ngOnInit() {
-      this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
-          this.info = info;
-          console.log(info);
 
-      })
-      console.log(this.current.conversationdata)
+      if(!this.afAuth.auth.currentUser){
+          this.router.navigate(['/login']);
+          console.log(this.afAuth.auth.currentUser);
+      }
+      else{
+          this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
+              this.info = info;
+              console.log(info);
+
+          });
+          console.log(this.current.conversationdata)
+      }
   }
 
 

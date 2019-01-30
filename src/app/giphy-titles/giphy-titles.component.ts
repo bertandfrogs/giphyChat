@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {DialogComponent} from "./dialog/dialog.component";
+import {AngularFireService} from "../angular-fire.service";
+import { AngularFireAuth} from "@angular/fire/auth";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-giphy-titles',
@@ -8,17 +11,26 @@ import {DialogComponent} from "./dialog/dialog.component";
   styleUrls: ['./giphy-titles.component.css']
 })
 
-export class GiphyTitlesComponent {
+export class GiphyTitlesComponent implements OnInit{
   chatList = [];
   noContentInList = true;
   deleteToggle = false;
   id=0;
 
 
+
   chatName: string;
   chatMembers: string[];
-  constructor(public dialog: MatDialog) { }
+  conversation: string[];
 
+  constructor(public dialog: MatDialog, public fireService: AngularFireService, private afAuth: AngularFireAuth, private router: Router) { }
+
+  ngOnInit(){
+    if(!this.afAuth.auth.currentUser){
+        this.router.navigate(['/login']);
+        console.log(this.afAuth.auth.currentUser);
+    }
+  }
 
   addChat(){
     this.unDelete();
@@ -53,10 +65,9 @@ export class GiphyTitlesComponent {
     });
 
     dialogRef.afterClosed().subscribe( result =>{
-        console.log("dialog closed");
-        console.log(result);
         this.chatName = result;
         this.chatList.push({name: this.chatName, id: this.id});
+        this.fireService.addChatArray(this.chatList);
       }
     );
 

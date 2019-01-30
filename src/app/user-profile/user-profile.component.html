@@ -5,7 +5,7 @@
   <span class="toolbar" [routerLink]="['/profile']"><a>Profile</a></span>
 </mat-toolbar>
 
-<mat-card class="profile">
+<mat-card class="profile" *ngIf="person">
   <mat-card-header>
     <mat-card-title>Current user: {{person.displayName}}</mat-card-title>
     <mat-card-subtitle>{{person.email}}</mat-card-subtitle>
