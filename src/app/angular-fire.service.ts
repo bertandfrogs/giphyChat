@@ -26,35 +26,21 @@ export class AngularFireService {
     this.afs.collection('users').get().subscribe(documents => {
 
       documents.forEach(doc => {
-        console.log(doc.data());
 
         ref = doc.data();
-
-        console.log(ref.id + " is the cloud user id");
-        console.log(data + " is the local user id");
-
           if (data == ref.id && userFound == false) {
-
-            console.log("match has been found");
-
             //gets data from the user
             userFound = true;
-            console.log(userFound);
-            console.log('the user is found! logging in');
             //logs user in
             //sets current users info
             this.currentUserInfo = ref;
             this.currentDocumentKey = doc.id;
-            console.log(this.currentUserInfo)
           }
       });
 
       if (userFound == false) {
         //push user to firestore
-        console.log(data);
         this.afs.collection('users').add({id: data, chats: []});
-        console.log("user not detected");
-        console.log('created user');
       }
 
     })
@@ -62,7 +48,6 @@ export class AngularFireService {
 
   addChatArray(chats){
     this.afs.collection('users').doc(this.currentDocumentKey).update({chats: [{title: chats, conversation: []}]});
-    console.log(this.currentUserInfo);
   }
 
   getPastChats(){
