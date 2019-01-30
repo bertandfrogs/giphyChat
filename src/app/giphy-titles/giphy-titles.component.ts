@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {DialogComponent} from "./dialog/dialog.component";
 import {AngularFireService} from "../angular-fire.service";
+import { AngularFireAuth} from "@angular/fire/auth";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-giphy-titles',
@@ -9,21 +11,25 @@ import {AngularFireService} from "../angular-fire.service";
   styleUrls: ['./giphy-titles.component.css']
 })
 
-export class GiphyTitlesComponent {
+export class GiphyTitlesComponent implements OnInit{
   chatList = [];
   noContentInList = true;
   deleteToggle = false;
   id=0;
 
 
+
   chatName: string;
   chatMembers: string[];
   conversation: string[];
 
-  constructor(public dialog: MatDialog, public fireService: AngularFireService) { }
+  constructor(public dialog: MatDialog, public fireService: AngularFireService, private afAuth: AngularFireAuth, private router: Router) { }
 
-  loadChats(){
-    this.fireService.getPastChats();
+  ngOnInit(){
+    if(!this.afAuth.auth.currentUser){
+        this.router.navigate(['/login']);
+        console.log(this.afAuth.auth.currentUser);
+    }
   }
 
   addChat(){

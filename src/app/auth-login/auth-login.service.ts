@@ -24,6 +24,7 @@ export class AuthLoginService {
           this.router.navigate(['/list'])
         }
     );
+
   }
 
   logOut () {

@@ -12,6 +12,7 @@ export class AngularFireService {
   users: Observable<any[]>;
   currentUserInfo = {};
   currentDocumentKey: string;
+  pastChats: [];
 
   constructor( private db: AngularFireDatabase,
                private afs: AngularFirestore,
@@ -62,11 +63,13 @@ export class AngularFireService {
 
   addChatArray(chats){
     this.afs.collection('users').doc(this.currentDocumentKey).update({chats: [{title: chats, conversation: []}]});
-    console.log(this.currentUserInfo);
   }
 
   getPastChats(){
-
+    this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe( document => {
+      console.log(document);
+      console.log(document.data());
+    })
   }
 
   deleteChatArray(){
