@@ -34,8 +34,11 @@ export class AuthLoginComponent implements OnInit {
         this.router.navigate(['/list']);
         this.db.userName = this.person;
         this.x.id = this.person.displayName;
+<<<<<<< HEAD
+=======
+        console.log(this.x.id);
+>>>>>>> 714f3e9cabeb340b974187d73fca427c1431a3f3
         this.ab.getUser(this.x.id);
-
       });
     });
   }
