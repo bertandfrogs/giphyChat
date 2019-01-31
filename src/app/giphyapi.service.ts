@@ -21,8 +21,9 @@ export class GiphyapiService {
         return this.http.get<any[]>(this.url + searchterm + this.url2);
     }
 
-    public getConversation(id: string): Observable<AngularFirestoreDocument>{
-     return this.afs.collection('conversations').doc(id).onSnapshot()
 
-    }
+    // public getConversation(id: string): Observable<AngularFirestoreDocument>{
+  //     //  return this.afs.collection('conversations').doc(id).onSnapshot()
+  //     //
+  //     // }
 }

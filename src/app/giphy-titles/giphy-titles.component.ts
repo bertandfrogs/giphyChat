@@ -15,7 +15,7 @@ export class GiphyTitlesComponent implements OnInit{
   chatList = [];
   noContentInList = true;
   deleteToggle = false;
-  id=0;
+  id = 0;
 
 
 
