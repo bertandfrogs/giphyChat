@@ -33,7 +33,7 @@ export class AuthLoginComponent implements OnInit {
         this.person = this.afAuth.auth.currentUser;
         this.router.navigate(['/list']);
         this.db.userName = this.person;
-        this.x.id = this.person.displayName;
+        this.x.id = this.person.uid;
         this.ab.getUser(this.x.id);
       });
     });

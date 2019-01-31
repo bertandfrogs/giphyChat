@@ -16,11 +16,9 @@ export class GiphyTitlesComponent implements OnInit{
   noContentInList = true;
   deleteToggle = false;
   id = 0;
-
-
-
   chatName: string;
   chatMembers: string[];
+  list: string[];
   conversation: string[];
 
   constructor(public dialog: MatDialog, public fireService: AngularFireService, private afAuth: AngularFireAuth, private router: Router, private ab: AngularFireService) { }
@@ -31,6 +29,7 @@ export class GiphyTitlesComponent implements OnInit{
         console.log(this.afAuth.auth.currentUser);
     }
     else{
+        this.ab.getUserList();
         this.ab.getPastChats();
     }
   }
@@ -75,7 +74,6 @@ export class GiphyTitlesComponent implements OnInit{
         }
       }
     );
-
   }
 
   goToChat(id: number) {

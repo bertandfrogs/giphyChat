@@ -14,12 +14,13 @@ export class AngularFireService {
   currentConversation = {};
   currentDocumentKey: string;
   pastChats: [];
+  userList = [];
+  private currentDoc: Object;
 
   constructor( private db: AngularFireDatabase,
                private afs: AngularFirestore,
                private afAuth: AngularFireAuth
-               ) {
-  }
+               ) {}
 
 
   getUser (data): void {
@@ -66,8 +67,6 @@ export class AngularFireService {
 
   addChatArray(chats){
     //ADDS CHAT DATA TO CONVERSATIONS
-
-    this.afs.collection('users').doc(this.currentDocumentKey).update({chats: [{title: chats, conversation: []}]});
     console.log(this.currentUserInfo);
     this.updateLocalInfo()
 
@@ -85,8 +84,8 @@ export class AngularFireService {
   updateLocalInfo(){
     //GRABS USER INFO
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
-      this.currentUserInfo = doc.data().chats
-      console.log(this.currentUserInfo[0].conversation)
+      this.currentUserInfo = doc.data().chats;
+      // console.log(this.currentUserInfo[0].conversation);
     })
   }
 
@@ -115,10 +114,19 @@ export class AngularFireService {
   getConversation(){
     this.currentConversation = this.afs.collection('conversation').doc(this.currentDocumentKey).get().subscribe( doc => {
       this.currentConversation = doc.data();
-    })
+    });
     return this.currentConversation;
   }
 
+  getUserList(){
+    this.afs.collection('users').get().subscribe(documents => {
+        documents.forEach(doc => {
+          if(this.afAuth.auth.currentUser.displayName != doc.data().displayName){
+              this.userList.push(doc.data().displayName);
+              console.log("user list: " + this.userList);
+          }
+        })
+    });
 
-
+  }
 }

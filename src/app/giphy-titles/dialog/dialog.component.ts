@@ -1,6 +1,7 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {DialogData} from "./dialogData";
+import {AngularFireService} from "../../angular-fire.service";
 
 @Component({
   selector: 'app-dialog',
@@ -9,13 +10,18 @@ import {DialogData} from "./dialogData";
 })
 
 export class DialogComponent{
-  public canceled = false;
+
+
   constructor(
       public dialogRef: MatDialogRef<DialogComponent>,
+      public afs: AngularFireService,
       @Inject(MAT_DIALOG_DATA) public data: DialogData){}
+
+
+  public uList = this.afs.userList;
+
 
   onNoClick(): void{
     this.dialogRef.close();
-    this.canceled = true;
   }
 }
