@@ -30,7 +30,6 @@ export class AngularFireService {
     this.afs.collection('users').get().subscribe(documents => {
 
       documents.forEach(doc => {
-        console.log(doc.data());
 
         ref = doc.data();
 
@@ -38,8 +37,6 @@ export class AngularFireService {
         console.log(data + " is the local user id");
 
           if (data == ref.uid && userFound == false) {
-
-            console.log("match has been found");
 
             //gets data from the user
             userFound = true;
@@ -56,7 +53,13 @@ export class AngularFireService {
       if (userFound == false) {
         //push user to firestore
         console.log(data);
-        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid});
+        this.afs.collection('users').add({
+          email: this.afAuth.auth.currentUser.email,
+          displayName: this.afAuth.auth.currentUser.displayName,
+          hex: "data",
+          imageUrl: this.afAuth.auth.currentUser.photoURL,
+          uid: this.afAuth.auth.currentUser.uid});
+
         console.log("user not detected");
         console.log('created user');
       }
@@ -66,8 +69,6 @@ export class AngularFireService {
 
   addChatArray(chats){
     //ADDS CHAT DATA TO CONVERSATIONS
-
-    this.afs.collection('users').doc(this.currentDocumentKey).update({chats: [{title: chats, conversation: []}]});
     console.log(this.currentUserInfo);
     this.updateLocalInfo()
 
@@ -79,14 +80,14 @@ export class AngularFireService {
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe( document => {
       console.log("document: " + document);
       console.log("document.data(): " + document.data());
+      return
     })
   }
 
   updateLocalInfo(){
     //GRABS USER INFO
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
-      this.currentUserInfo = doc.data().chats
-      console.log(this.currentUserInfo[0].conversation)
+      this.currentUserInfo = doc.data()
     })
   }
 
@@ -106,23 +107,16 @@ export class AngularFireService {
       messages:[],
       admin: ''
     }
-
-
-
-
-
-
-
     // console.log(data.conversationdata);
     // this.afs.collection('conversations').add(conversations);
   }
 
-  getConversation(){
-    this.currentConversation = this.afs.collection('conversation').doc(this.currentDocumentKey).get().subscribe( doc => {
-      this.currentConversation = doc.data();
-    })
-    return this.currentConversation;
-  }
+  // getConversation(){
+  //   this.currentConversation = this.afs.collection('conversation').doc(this.currentDocumentKey).get().subscribe( doc => {
+  //     this.currentConversation = doc.data();
+  //   })
+  //   return this.currentConversation;
+  // }
 
 
 }

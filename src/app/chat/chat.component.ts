@@ -54,7 +54,6 @@ export class ChatComponent implements OnInit {
       }
   }
 
-
   submit(){
 
       console.log('form submitted');
@@ -79,6 +78,10 @@ export class ChatComponent implements OnInit {
 
 
 
+  }
+
+  getChats(){
+      this.current.conversationdata.push(this.db.getPastChats())
   }
 
 }
