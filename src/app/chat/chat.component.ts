@@ -74,7 +74,7 @@ export class ChatComponent implements OnInit {
 
 
       console.log(this.current);
-      this.db.addChats(this.current);
+      this.db.newMessage(this.current);
 
 
 
