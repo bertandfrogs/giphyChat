@@ -29,7 +29,6 @@ export class AngularFireService {
     this.afs.collection('users').get().subscribe(documents => {
 
       documents.forEach(doc => {
-        console.log(doc.data());
 
         ref = doc.data();
 
@@ -55,7 +54,7 @@ export class AngularFireService {
       if (userFound == false) {
         //push user to firestore
         console.log(data);
-        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid});
+        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []});
         console.log("user not detected");
         console.log('created user');
       }
@@ -63,11 +62,8 @@ export class AngularFireService {
     });
   }
 
-  addChatArray(chats){
+  addChatArray(){
     //ADDS CHAT DATA TO CONVERSATIONS
-
-    this.afs.collection('users').doc(this.currentDocumentKey).update({chats: [{title: chats, conversation: []}]});
-    console.log(this.currentUserInfo);
     this.updateLocalInfo()
 
   }
@@ -84,8 +80,8 @@ export class AngularFireService {
   updateLocalInfo(){
     //GRABS USER INFO
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
-      this.currentUserInfo = doc.data().chats
-      console.log(this.currentUserInfo[0].conversation)
+      this.currentUserInfo = doc.data();
+      console.log(this.currentUserInfo);
     })
   }
 
@@ -98,17 +94,27 @@ export class AngularFireService {
     this.afs.collection('conversation').doc(this.currentDocumentKey).update(data.conversationdata)
   }
 
-  newConversation(title, destination){
+  newConversation(title){
+
     let conversation = {
       title: title,
       users: [],
       messages:[],
-      admin: ''
-    }
+      admin: this.afAuth.auth.currentUser.displayName,
+    };
+      this.afs.collection("conversations").add({
+          conversation
+      })
+          .then(docRef => {
+              // console.log(this.currentDocumentKey);
+              console.log("Document written with ID: ", docRef.id);
+              console.log(this.currentUserInfo);
+              // @ts-ignore
+              this.currentUserInfo.conversationIds.push(docRef.id);
+              this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
 
-
-
-
+          })
+          .catch(error => console.error("Error adding document: ", error))
 
   }
 
