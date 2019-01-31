@@ -55,7 +55,7 @@ export class AngularFireService {
       if (userFound == false) {
         //push user to firestore
         console.log(data);
-        this.afs.collection('users').add({email: "email", firstName: "name", hex: "data", imageUrl: "data", lastName: "data", uid: data});
+        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid});
         console.log("user not detected");
         console.log('created user');
       }
@@ -64,14 +64,16 @@ export class AngularFireService {
   }
 
   addChatArray(chats){
-    this.afs.collection('users').doc(this.currentDocumentKey).update({chats: [{title: chats, conversation: []}]});
+    //ADDS CHAT DATA TO CONVERSATIONS
 
+    this.afs.collection('users').doc(this.currentDocumentKey).update({chats: [{title: chats, conversation: []}]});
     console.log(this.currentUserInfo);
     this.updateLocalInfo()
 
   }
 
   getPastChats(){
+    //UPDATES LOCAL USER'S CHATS
     console.log(this.currentDocumentKey);
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe( document => {
       console.log("document: " + document);
@@ -79,22 +81,8 @@ export class AngularFireService {
     })
   }
 
-  addChats(data){
-    const chats = [];
-    // const chat = {
-    //   conversations: [],
-    //   title: [{
-    //     id: 1,
-    //     name: this.curre
-    //   }],
-
-    //}
-    console.log(data.conversationdata);
-    this.afs.collection('users').doc(this.currentDocumentKey).update({'chats': [{title: this.currentUserInfo[0].title[0], conversation: data.conversationdata[0]}]});
-    // {chats: [{conversation: data.conversationdata}]}
-  }
-
   updateLocalInfo(){
+    //GRABS USER INFO
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
       this.currentUserInfo = doc.data().chats
       console.log(this.currentUserInfo[0].conversation)
@@ -102,10 +90,25 @@ export class AngularFireService {
   }
 
   getCurrentUserID(){
+    //GRABS USER ID
     return this.currentDocumentKey;
   }
 
-  deleteChatArray(){
+  newMessage(data){
+    this.afs.collection('conversation').doc(this.currentDocumentKey).update(data.conversationdata)
+  }
+
+  newConversation(title, destination){
+    let conversation = {
+      title: title,
+      users: [],
+      messages:[],
+      admin: ''
+    }
+
+
+
+
 
   }
 
