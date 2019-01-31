@@ -9,11 +9,13 @@ import {DialogData} from "./dialogData";
 })
 
 export class DialogComponent{
+  public canceled = false;
   constructor(
       public dialogRef: MatDialogRef<DialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: DialogData){}
 
   onNoClick(): void{
     this.dialogRef.close();
+    this.canceled = true;
   }
 }
