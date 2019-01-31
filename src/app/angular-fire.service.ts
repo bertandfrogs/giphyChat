@@ -11,6 +11,7 @@ export class AngularFireService {
 
   users: Observable<any[]>;
   currentUserInfo = {};
+  currentConversation = {};
   currentDocumentKey: string;
   pastChats: [];
 
@@ -107,9 +108,17 @@ export class AngularFireService {
     }
 
 
-
-
-
+    // console.log(data.conversationdata);
+    // this.afs.collection('conversations').add(conversations);
   }
+
+  getConversation(){
+    this.currentConversation = this.afs.collection('conversation').doc(this.currentDocumentKey).get().subscribe( doc => {
+      this.currentConversation = doc.data();
+    })
+    return this.currentConversation;
+  }
+
+
 
 }
