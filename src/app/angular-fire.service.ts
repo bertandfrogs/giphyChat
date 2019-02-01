@@ -11,6 +11,7 @@ export class AngularFireService {
 
   users: Observable<any[]>;
   currentUserInfo = {};
+  currentConversationInfo = {};
   currentDocumentKey: string;
   pastChats: [];
 
@@ -62,21 +63,6 @@ export class AngularFireService {
     });
   }
 
-  addChatArray(){
-    //ADDS CHAT DATA TO CONVERSATIONS
-    this.updateLocalInfo()
-
-  }
-
-  getPastChats(){
-    //UPDATES LOCAL USER'S CHATS
-    console.log(this.currentDocumentKey);
-    this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe( document => {
-      console.log("document: " + document);
-      console.log("document.data(): " + document.data());
-    })
-  }
-
   updateLocalInfo(){
     //GRABS USER INFO
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
@@ -96,7 +82,7 @@ export class AngularFireService {
 
   newConversation(title){
 
-    let conversation = {
+    let conversation ={
       title: title,
       users: [],
       messages:[],
@@ -115,6 +101,21 @@ export class AngularFireService {
 
           })
           .catch(error => console.error("Error adding document: ", error))
+
+  }
+
+  updateLocalConversation(){
+    this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').get().subscribe(function(doc) {
+      this.current.conversationdata.push(doc.data().messages)
+      console.log(doc.data().messages)
+    });
+  }
+
+  addChat(data){
+    // @ts-ignore
+    this.currentConversationInfo.messages.push(data)
+    console.log(data)
+    this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').update(this.currentConversationInfo)
 
   }
 

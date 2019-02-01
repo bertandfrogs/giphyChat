@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   searchterm = "";
   input = "";
   conversation;
+  message = {};
 
   current = new Conversation(
 
@@ -44,13 +45,10 @@ export class ChatComponent implements OnInit {
           this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
               this.info = info;
               console.log(info);
+          });
 
-          });
-          console.log(this.current.conversationdata);
-        
-          this.afs.collection('conversations').doc(this.db.getCurrentUserID()).ref.get().then(function(doc) {
-              this.conversation = doc.data();
-          });
+          console.log(this.db.getCurrentUserID())
+          this.db.updateLocalConversation()
       }
   }
 
@@ -58,12 +56,25 @@ export class ChatComponent implements OnInit {
 
       console.log('form submitted');
       console.log(this.input);
-
       this.searchterm = this.input;
 
       this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
+
+
           this.info = info;
           this.current.conversationdata.push({
+              url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
+              toOrfrom:"to",
+              date:new Date()
+          })
+
+          console.log(this.current);
+
+          console.log(this.message)
+
+          // this.db.newMessage(this.current);
+
+          this.db.addChat({
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
               toOrfrom:"to",
               date:new Date()
@@ -72,16 +83,11 @@ export class ChatComponent implements OnInit {
       });
 
 
-      console.log(this.current);
-      this.db.newMessage(this.current);
-
-
-
 
   }
 
-  getChats(){
-      this.current.conversationdata.push(this.db.getPastChats())
+  updateCurrent(){
+
   }
 
 }
