@@ -74,11 +74,13 @@ export class GiphyTitlesComponent implements OnInit {
       data: {chatName: this.chatName, chatMembers: this.chatMembers}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-          this.chatName = result;
-          this.chatList.push({name: this.chatName, id: this.id});
-          this.ab.newConversation(this.chatName)
+    dialogRef.afterClosed().subscribe( result =>{
+        if(result != undefined){
+            this.chatName = result;
+            this.chatList.push({name: this.chatName, id: this.id});
+            this.ab.newConversation(this.chatName)
         }
+      }
     );
 
   }
