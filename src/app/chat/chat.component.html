@@ -12,7 +12,7 @@
 
     <div class="messages">
         <ng-container *ngFor="let gif of this.current.conversationdata">
-            <div class="messagefield" id="{{gif.toOrfrom}}"><h6>{{gif.date | date:'medium'}}</h6><img src="{{gif.url}}" alt="{{searchterm}}" class="gif"></div>
+            <div class="messagefield" id="{{gif.toOrfrom}}"><h6>{{gif.date}}</h6><img src="{{gif.url}}" alt="{{searchterm}}" class="gif"></div>
         </ng-container>
     </div>
 </div>
@@ -28,3 +28,4 @@
 </mat-card>
 </div>
 
+<!---->

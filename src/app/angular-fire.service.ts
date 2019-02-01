@@ -105,18 +105,25 @@ export class AngularFireService {
   }
 
   updateLocalConversation(){
-    this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').get().subscribe(function(doc) {
-      this.current.conversationdata.push(doc.data().messages)
-      console.log(doc.data().messages)
-    });
+    this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').get().subscribe(doc => {
+      this.currentConversationInfo= doc.data();
+      console.log(this.currentConversationInfo);
+    })
   }
 
   addChat(data){
     // @ts-ignore
+    console.log(this.currentConversationInfo)
     this.currentConversationInfo.messages.push(data)
     console.log(data)
     this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').update(this.currentConversationInfo)
 
   }
+
+  refresh(){
+    this.updateLocalConversation()
+    this.updateLocalInfo()
+  }
+
 
 }
