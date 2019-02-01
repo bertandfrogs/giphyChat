@@ -20,7 +20,10 @@
   <div *ngFor="let chat of chatList" class="chatList">
     <mat-card class="chatCard">
       <mat-icon class="trash" *ngIf="deleteToggle" (click)="deleteThis(chat.id)">delete</mat-icon>
-      <p (click)="goToChat(chat.id)">{{chat.name}}</p>
+      <div class="cardText">
+        <p class="chatName" (click)="goToChat(chat.id)">{{chat.name}}</p>
+        <p class="members">Chat with {{chat.member}}</p>
+      </div>
     </mat-card>
   </div>
 

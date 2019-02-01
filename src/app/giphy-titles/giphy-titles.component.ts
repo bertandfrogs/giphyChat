@@ -26,7 +26,6 @@ export class GiphyTitlesComponent implements OnInit{
   ngOnInit(){
     if(!this.afAuth.auth.currentUser){
         this.router.navigate(['/login']);
-        console.log(this.afAuth.auth.currentUser);
     }
     else{
         this.ab.getUserList();
@@ -67,9 +66,10 @@ export class GiphyTitlesComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe( result =>{
+        console.log(result);
         if(result != undefined){
             this.chatName = result;
-            this.chatList.push({name: this.chatName, id: this.id});
+            this.chatList.push({name: this.chatName, id: this.id, member: this.chatMembers});
             this.fireService.addChatArray(this.chatList);
         }
       }

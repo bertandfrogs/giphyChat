@@ -25,6 +25,11 @@
     align-items: center;
     width: 80%;
 }
+.cardText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .chatCard p{
     padding: 5px;
@@ -33,4 +38,8 @@
 
 .trash{
     font-size: 20px;
+}
+
+.members{
+    font-size: 12px;
 }

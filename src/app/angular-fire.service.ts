@@ -31,35 +31,23 @@ export class AngularFireService {
     this.afs.collection('users').get().subscribe(documents => {
 
       documents.forEach(doc => {
-        console.log(doc.data());
 
         ref = doc.data();
 
-        console.log(ref.uid + " is the cloud user id");
-        console.log(data + " is the local user id");
-
           if (data == ref.uid && userFound == false) {
-
-            console.log("match has been found");
 
             //gets data from the user
             userFound = true;
-            console.log(userFound);
-            console.log('the user is found! logging in');
             //logs user in
             //sets current users info
             this.currentUserInfo = ref;
             this.currentDocumentKey = doc.id;
-            console.log(this.currentUserInfo)
           }
       });
 
       if (userFound == false) {
         //push user to firestore
-        console.log(data);
         this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid});
-        console.log("user not detected");
-        console.log('created user');
       }
 
     });
@@ -67,25 +55,20 @@ export class AngularFireService {
 
   addChatArray(chats){
     //ADDS CHAT DATA TO CONVERSATIONS
-    console.log(this.currentUserInfo);
     this.updateLocalInfo()
 
   }
 
   getPastChats(){
     //UPDATES LOCAL USER'S CHATS
-    console.log(this.currentDocumentKey);
-    this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe( document => {
-      console.log("document: " + document);
-      console.log("document.data(): " + document.data());
-    })
+    // this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe( document => {
+    // })
   }
 
   updateLocalInfo(){
     //GRABS USER INFO
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
       this.currentUserInfo = doc.data().chats;
-      // console.log(this.currentUserInfo[0].conversation);
     })
   }
 
@@ -123,7 +106,6 @@ export class AngularFireService {
         documents.forEach(doc => {
           if(this.afAuth.auth.currentUser.displayName != doc.data().displayName){
               this.userList.push(doc.data().displayName);
-              console.log("user list: " + this.userList);
           }
         })
     });

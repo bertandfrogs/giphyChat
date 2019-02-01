@@ -10,7 +10,7 @@ import {AngularFireService} from "../../angular-fire.service";
 })
 
 export class DialogComponent{
-
+  selectedOption;
 
   constructor(
       public dialogRef: MatDialogRef<DialogComponent>,
@@ -23,5 +23,10 @@ export class DialogComponent{
 
   onNoClick(): void{
     this.dialogRef.close();
+  }
+
+  selected(user){
+    console.log("this.selectedOption: " + this.selectedOption);
+    console.log("user: " + user);
   }
 }

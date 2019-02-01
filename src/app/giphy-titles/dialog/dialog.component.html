@@ -5,9 +5,11 @@
     </mat-form-field>
     <p>Select a user to chat with</p>
     <mat-form-field>
-        <mat-select>
+        <mat-select [(ngModel)]="selectedOption">
             <mat-option *ngFor="let user of uList"
-                        value="{{user}}">{{ user }}</mat-option>
+                        [(value)]="user"
+                        (onSelectionChange)="selected(user)"
+                        ngDefaultControl>{{ user }}</mat-option>
         </mat-select>
     </mat-form-field>
 </mat-dialog-content>
