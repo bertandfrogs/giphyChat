@@ -4,6 +4,9 @@ import {DialogComponent} from "./dialog/dialog.component";
 import {AngularFireService} from "../angular-fire.service";
 import { AngularFireAuth} from "@angular/fire/auth";
 import {Router} from "@angular/router";
+import { AngularFirestore } from 'angularfire2/firestore'
+
+
 
 @Component({
   selector: 'app-giphy-titles',
@@ -11,21 +14,31 @@ import {Router} from "@angular/router";
   styleUrls: ['./giphy-titles.component.css']
 })
 
-export class GiphyTitlesComponent implements OnInit{
+export class GiphyTitlesComponent implements OnInit {
   chatList = [];
   noContentInList = true;
   deleteToggle = false;
   id = 0;
+
+
   chatName: string;
   chatMembers: string[];
   list: string[];
   conversation: string[];
 
-  constructor(public dialog: MatDialog, public fireService: AngularFireService, private afAuth: AngularFireAuth, private router: Router, private ab: AngularFireService) { }
+  constructor(public dialog: MatDialog,
+              public fireService: AngularFireService,
+              private afAuth: AngularFireAuth,
+              private router: Router,
+              private ab: AngularFireService,
+              private afs: AngularFirestore,
+  ) {
+  }
 
-  ngOnInit(){
-    if(!this.afAuth.auth.currentUser){
-        this.router.navigate(['/login']);
+  ngOnInit() {
+    if (!this.afAuth.auth.currentUser) {
+      this.router.navigate(['/login']);
+      console.log(this.afAuth.auth.currentUser);
     }
     else{
         this.ab.getUserList();
@@ -33,7 +46,7 @@ export class GiphyTitlesComponent implements OnInit{
     }
   }
 
-  addChat(){
+  addChat() {
     this.unDelete();
     this.openDialog();
     this.noContentInList = false;
@@ -62,15 +75,15 @@ export class GiphyTitlesComponent implements OnInit{
   openDialog(): void{
     const dialogRef = this.dialog.open(DialogComponent,{
       width: '250px',
-        data: {chatName: this.chatName, chatMembers: this.chatMembers}
+      data: {chatName: this.chatName, chatMembers: this.chatMembers}
     });
 
     dialogRef.afterClosed().subscribe( result =>{
         console.log(result);
         if(result != undefined){
             this.chatName = result;
-            this.chatList.push({name: this.chatName, id: this.id, member: this.chatMembers});
-            this.fireService.addChatArray(this.chatList);
+            this.chatList.push({name: this.chatName, id: this.id});
+            this.ab.newConversation(this.chatName)
         }
       }
     );
@@ -80,3 +93,4 @@ export class GiphyTitlesComponent implements OnInit{
 
   }
 }
+

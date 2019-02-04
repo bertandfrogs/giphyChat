@@ -11,9 +11,9 @@ export class AngularFireService {
 
   users: Observable<any[]>;
   currentUserInfo = {};
-  currentConversation = {};
+  currentConversationInfo = {};
   currentDocumentKey: string;
-  pastChats: [];
+  pastChats = [];
   userList = [];
   private currentDoc: Object;
 
@@ -42,12 +42,17 @@ export class AngularFireService {
             //sets current users info
             this.currentUserInfo = ref;
             this.currentDocumentKey = doc.id;
+            this.updateLocalInfo();
+            console.log(this.currentUserInfo)
           }
       });
 
       if (userFound == false) {
         //push user to firestore
-        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid});
+        console.log(data);
+        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []});
+        console.log("user not detected");
+        console.log('created user');
       }
 
     });
@@ -68,6 +73,10 @@ export class AngularFireService {
   updateLocalInfo(){
     //GRABS USER INFO
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
+      this.currentUserInfo = doc.data();
+      console.log(this.currentUserInfo);
+    });
+    this.getPastConversations()
       this.currentUserInfo = doc.data().chats;
     })
   }
@@ -81,17 +90,36 @@ export class AngularFireService {
     this.afs.collection('conversation').doc(this.currentDocumentKey).update(data.conversationdata)
   }
 
-  newConversation(title, destination){
-    let conversation = {
+  newConversation(title){
+
+    let conversation ={
       title: title,
       users: [],
       messages:[],
-      admin: ''
-    }
+      admin: this.afAuth.auth.currentUser.displayName,
+    };
+      this.afs.collection("conversations").add({
+          conversation
+      })
+          .then(docRef => {
+              // console.log(this.currentDocumentKey);
+              console.log("Document written with ID: ", docRef.id);
+              console.log(this.currentUserInfo);
+              // @ts-ignore
+              this.currentUserInfo.conversationIds.push(docRef.id);
+              this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
+
+          })
+          .catch(error => console.error("Error adding document: ", error))
+
+  }
 
 
-    // console.log(data.conversationdata);
-    // this.afs.collection('conversations').add(conversations);
+  updateLocalConversation(){
+    this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').get().subscribe(function(doc) {
+      this.current.conversationdata.push(doc.data().messages);
+      console.log(doc.data().messages)
+    });
   }
 
   getConversation(){
@@ -99,7 +127,19 @@ export class AngularFireService {
       this.currentConversation = doc.data();
     });
     return this.currentConversation;
+  addChat(data){
+    // @ts-ignore
+    this.currentConversationInfo.messages.push(data)
+    console.log(data);
+    this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').update(this.currentConversationInfo)
+
   }
+  getPastConversations() {
+    // @ts-ignore
+    for (let conversation of this.currentUserInfo.conversationIds) {
+      this.afs.collection('conversations').doc(conversation).get().subscribe( (doc) => {
+        this.pastChats.push(doc.data());
+        console.log(this.pastChats)
 
   getUserList(){
     this.afs.collection('users').get().subscribe(documents => {
@@ -109,6 +149,13 @@ export class AngularFireService {
           }
         })
     });
+      })
+    }
+
+  }
 
   }
 }
+
+
+

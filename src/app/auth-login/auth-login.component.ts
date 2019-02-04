@@ -31,10 +31,10 @@ export class AuthLoginComponent implements OnInit {
     this.db.logIn().then( data => {
       this.zone.run(()=>{
         this.person = this.afAuth.auth.currentUser;
-        this.router.navigate(['/list']);
         this.db.userName = this.person;
         this.x.id = this.person.uid;
         this.ab.getUser(this.x.id);
+        this.router.navigate(['/list']);
       });
     });
   }
