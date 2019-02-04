@@ -21,7 +21,7 @@
       <mat-icon class="trash" *ngIf="deleteToggle" (click)="deleteThis(chat.id)">delete</mat-icon>
       <div class="cardText">
         <p class="chatName" (click)="goToChat(chat.id)">{{chat.name}}</p>
-        <p class="members">Chat with {{chat.member}}</p>
+        <p class="members">Chat with {{ user }}</p>
       </div>
     </mat-card>
   </div>
@@ -29,7 +29,7 @@
   <div *ngIf="noContentInList">
     <h4 class="noContent">You don't have any chats. Click 'Add a new chat' to get started!</h4>
   </div>
-  <div *ngFor="let index of this.ab?.currentUserInfo.conversationIds; let i = index">
+  <div *ngFor="let index of this.ab?.currentUserInfo?.conversationIds; let i = index">
     <mat-card>
       <mat-card-title>{{this.ab.pastChats[i]?.conversation.title}}</mat-card-title>
       <mat-card-subtitle>{{this.ab.pastChats[i]?.conversation.admin}}</mat-card-subtitle>

@@ -8,13 +8,13 @@ import { AngularFireAuth} from "@angular/fire/auth";
   providedIn: 'root'
 })
 export class AngularFireService {
-
   users: Observable<any[]>;
   currentUserInfo = {};
   currentConversationInfo = {};
   currentDocumentKey: string;
   pastChats = [];
   userList = [];
+  conversationIds = [];
   private currentDoc: Object;
 
   constructor( private db: AngularFireDatabase,
@@ -26,9 +26,9 @@ export class AngularFireService {
   getUser (data): void {
 
     let userFound = false;
-    var ref;
+    let ref;
 
-    this.afs.collection('users').get().subscribe(documents => {
+      this.afs.collection('users').get().subscribe(documents => {
 
       documents.forEach(doc => {
 
@@ -50,7 +50,7 @@ export class AngularFireService {
       if (userFound == false) {
         //push user to firestore
         console.log(data);
-        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []});
+        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds : []});
         console.log("user not detected");
         console.log('created user');
       }
@@ -73,12 +73,11 @@ export class AngularFireService {
   updateLocalInfo(){
     //GRABS USER INFO
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
-      this.currentUserInfo = doc.data();
       console.log(this.currentUserInfo);
+      this.getPastConversations();
+        this.currentUserInfo = doc.data().chats;
     });
-    this.getPastConversations()
-      this.currentUserInfo = doc.data().chats;
-    })
+
   }
 
   getCurrentUserID(){
@@ -122,40 +121,43 @@ export class AngularFireService {
     });
   }
 
-  getConversation(){
-    this.currentConversation = this.afs.collection('conversation').doc(this.currentDocumentKey).get().subscribe( doc => {
-      this.currentConversation = doc.data();
-    });
-    return this.currentConversation;
-  addChat(data){
-    // @ts-ignore
-    this.currentConversationInfo.messages.push(data)
-    console.log(data);
-    this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').update(this.currentConversationInfo)
-
+  getConversation() {
+      this.currentConversationInfo = this.afs.collection('conversation').doc(this.currentDocumentKey).get().subscribe(doc => {
+          this.currentConversationInfo = doc.data();
+      });
+      return this.currentConversationInfo;
   }
-  getPastConversations() {
-    // @ts-ignore
-    for (let conversation of this.currentUserInfo.conversationIds) {
-      this.afs.collection('conversations').doc(conversation).get().subscribe( (doc) => {
-        this.pastChats.push(doc.data());
-        console.log(this.pastChats)
+    addChat(data)
+    {
+        // @ts-ignore
+        this.currentConversationInfo.messages.push(data);
+        console.log(data);
+        this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').update(this.currentConversationInfo)
 
-  getUserList(){
-    this.afs.collection('users').get().subscribe(documents => {
-        documents.forEach(doc => {
-          if(this.afAuth.auth.currentUser.displayName != doc.data().displayName){
-              this.userList.push(doc.data().displayName);
-          }
-        })
-    });
-      })
     }
-
-  }
-
-  }
+    getPastConversations() {
+        // @ts-ignore
+        for (let conversation of this.currentUserInfo.conversationIds) {
+            this.afs.collection('conversations').doc(conversation).get().subscribe((doc) => {
+                this.pastChats.push(doc.data());
+                console.log(this.pastChats)
+            })
+        }
+    }
+    getUserList()
+    {
+        this.afs.collection('users').get().subscribe(documents => {
+            documents.forEach(doc => {
+                if (this.afAuth.auth.currentUser.displayName != doc.data().displayName) {
+                    this.userList.push(doc.data().displayName);
+                }
+            })
+        })
+    }
 }
+
+
+
 
 
 
