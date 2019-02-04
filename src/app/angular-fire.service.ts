@@ -66,8 +66,8 @@ export class AngularFireService {
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
       this.currentUserInfo = doc.data();
       console.log(this.currentUserInfo);
+      this.getPastConversations();
     });
-    this.getPastConversations()
   }
 
   getCurrentUserID(){
@@ -97,7 +97,7 @@ export class AngularFireService {
               // @ts-ignore
               this.currentUserInfo.conversationIds.push(docRef.id);
               this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
-
+            this.getPastConversations();
           })
           .catch(error => console.error("Error adding document: ", error))
 
@@ -113,14 +113,17 @@ export class AngularFireService {
 
   addChat(data){
     // @ts-ignore
+
     console.log(this.currentConversationInfo)
     // @ts-ignore
     this.currentConversationInfo.messages.push(data)
+
     console.log(data);
     this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').update(this.currentConversationInfo)
 
   }
   getPastConversations() {
+    this.pastChats = [];
     // @ts-ignore
     for (let conversation of this.currentUserInfo.conversationIds) {
       this.afs.collection('conversations').doc(conversation).get().subscribe( (doc) => {

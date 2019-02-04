@@ -15,21 +15,13 @@
     </button>
     <button mat-raised-button *ngIf="deleteToggle" class="addDelete" (click)="unDelete()">Done</button>
   </div>
-
-  <div *ngFor="let chat of chatList" class="chatList">
-    <mat-card class="chatCard">
-      <mat-icon class="trash" *ngIf="deleteToggle" (click)="deleteThis(chat.id)">delete</mat-icon>
-      <p (click)="goToChat(chat.id)">{{chat.name}}</p>
-    </mat-card>
-  </div>
-
-  <div *ngIf="noContentInList">
+  <div *ngIf="this.ab?.currentUserInfo.conversationIds?.length === 0">
     <h4 class="noContent">You don't have any chats. Click 'Add a new chat' to get started!</h4>
   </div>
   <div *ngFor="let index of this.ab?.currentUserInfo.conversationIds; let i = index">
     <mat-card>
-      <mat-card-title>{{this.ab.pastChats[i]?.conversation.title}}</mat-card-title>
-      <mat-card-subtitle>{{this.ab.pastChats[i]?.conversation.admin}}</mat-card-subtitle>
+      <mat-card-title>{{this.ab?.pastChats[i]?.conversation.title}}</mat-card-title>
+      <mat-card-subtitle>{{this.ab?.pastChats[i]?.conversation.admin}}</mat-card-subtitle>
     </mat-card>
   </div>
 </div>
