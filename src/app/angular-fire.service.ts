@@ -114,6 +114,7 @@ export class AngularFireService {
   addChat(data){
     // @ts-ignore
     console.log(this.currentConversationInfo)
+    // @ts-ignore
     this.currentConversationInfo.messages.push(data)
     console.log(data)
     this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').update(this.currentConversationInfo)

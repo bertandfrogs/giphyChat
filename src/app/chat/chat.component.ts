@@ -77,7 +77,7 @@ export class ChatComponent implements OnInit {
           this.db.addChat({
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
               toOrfrom:"to",
-              date:(new Date()).toDateString(),
+              date:(new Date()).toString(),
           })
           this.updateData()
       });

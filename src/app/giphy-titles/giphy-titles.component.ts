@@ -36,7 +36,6 @@ export class GiphyTitlesComponent implements OnInit{
         console.log(this.afAuth.auth.currentUser);
     }
     else{
-        this.ab.getPastChats();
         this.ab.updateLocalInfo();
     }
   }
