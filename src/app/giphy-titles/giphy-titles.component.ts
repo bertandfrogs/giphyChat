@@ -39,6 +39,7 @@ export class GiphyTitlesComponent implements OnInit {
       this.router.navigate(['/login']);
       console.log(this.afAuth.auth.currentUser);
     }
+
   }
 
   addChat() {
@@ -46,7 +47,6 @@ export class GiphyTitlesComponent implements OnInit {
     this.openDialog();
     this.noContentInList = false;
     this.id++;
-
   }
 
   deleteChat() {
@@ -63,9 +63,6 @@ export class GiphyTitlesComponent implements OnInit {
         this.chatList.splice(i, 1);
       }
     }
-    if (this.chatList[0] === null) {
-      this.noContentInList = true;
-    }
   }
 
   openDialog(): void {
@@ -77,7 +74,7 @@ export class GiphyTitlesComponent implements OnInit {
     dialogRef.afterClosed().subscribe( result =>{
         if(result != undefined){
             this.chatName = result;
-            this.chatList.push({name: this.chatName, id: this.id});
+            // this.chatList.push({name: this.chatName, id: this.id});
             this.ab.newConversation(this.chatName)
         }
       }
