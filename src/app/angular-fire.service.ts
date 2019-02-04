@@ -13,7 +13,7 @@ export class AngularFireService {
   currentUserInfo = {};
   currentConversationInfo = {};
   currentDocumentKey: string;
-  pastChats: [];
+  pastChats = [];
 
   constructor( private db: AngularFireDatabase,
                private afs: AngularFirestore,
@@ -33,9 +33,6 @@ export class AngularFireService {
 
         ref = doc.data();
 
-        console.log(ref.uid + " is the cloud user id");
-        console.log(data + " is the local user id");
-
           if (data == ref.uid && userFound == false) {
 
             console.log("match has been found");
@@ -48,6 +45,7 @@ export class AngularFireService {
             //sets current users info
             this.currentUserInfo = ref;
             this.currentDocumentKey = doc.id;
+            this.updateLocalInfo();
             console.log(this.currentUserInfo)
           }
       });
@@ -68,7 +66,8 @@ export class AngularFireService {
     this.afs.collection('users').doc(this.currentDocumentKey).get().subscribe(doc => {
       this.currentUserInfo = doc.data();
       console.log(this.currentUserInfo);
-    })
+    });
+    this.getPastConversations()
   }
 
   getCurrentUserID(){
@@ -104,6 +103,7 @@ export class AngularFireService {
 
   }
 
+
   updateLocalConversation(){
     this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').get().subscribe(doc => {
       this.currentConversationInfo= doc.data();
@@ -116,8 +116,19 @@ export class AngularFireService {
     console.log(this.currentConversationInfo)
     // @ts-ignore
     this.currentConversationInfo.messages.push(data)
-    console.log(data)
+    console.log(data);
     this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').update(this.currentConversationInfo)
+
+  }
+  getPastConversations() {
+    // @ts-ignore
+    for (let conversation of this.currentUserInfo.conversationIds) {
+      this.afs.collection('conversations').doc(conversation).get().subscribe( (doc) => {
+        this.pastChats.push(doc.data());
+        console.log(this.pastChats)
+
+      })
+    }
 
   }
 
@@ -128,3 +139,6 @@ export class AngularFireService {
 
 
 }
+
+
+
