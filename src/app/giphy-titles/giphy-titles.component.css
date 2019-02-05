@@ -1,4 +1,4 @@
-.toolbar{
+.toolbar {
     margin:0px;
     margin-right: 20px;
     height:100%;
@@ -9,19 +9,22 @@
 .toolbar:focus {
     outline:none;
 }
-.wrapper{
+.toolbar:hover {
+     cursor: pointer;
+ }
+.wrapper {
     padding: 20px;
 }
 
-.noContent{
+.noContent {
     padding: 20px;
 }
 
-.buttons{
+.buttons {
     display: flex;
 }
 
-.addDelete{
+.addDelete {
     margin: 5px;
 }
 .chatCard{
@@ -34,16 +37,16 @@
     width: 70%;
 }
 
-.chatCard p{
+.chatCard p {
     padding: 5px;
     margin: 0;
 }
 
-.conversation{
+.conversation {
     margin-left:5px;
     margin-top:20px;
 }
 
-.trash{
+.trash {
     font-size: 20px;
 }

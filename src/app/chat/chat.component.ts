@@ -19,7 +19,6 @@ export class ChatComponent implements OnInit {
   searchterm = "";
   input = "";
   conversation;
-  message = {};
   test;
 
   current = new Conversation(

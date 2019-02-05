@@ -12,6 +12,9 @@ h1{
 .toolbar:focus {
     outline:none;
 }
+.toolbar:hover{
+    cursor: pointer;
+}
 .whitecard{
     display:flex;
     align-items: center;
