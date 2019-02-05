@@ -48,6 +48,7 @@ export class ChatComponent implements OnInit {
               console.log(info);
               this.updateData()
               this.db.updateLocalConversation()
+              console.log(this.current.conversationdata);
           });
       }
   }
@@ -57,20 +58,21 @@ export class ChatComponent implements OnInit {
       console.log('form submitted');
       console.log(this.input);
       this.searchterm = this.input;
-
+      console.log(this.current.conversationdata);
       this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
 
 
           this.info = info;
+          console.log(this.current);
           this.current.conversationdata.push({
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
               toOrfrom:"to",
               date:(new Date()).toDateString()
-          })
+          });
 
           console.log(this.current);
 
-          console.log(this.message)
+          console.log(this.message);
 
           // this.db.newMessage(this.current);
 
@@ -78,7 +80,7 @@ export class ChatComponent implements OnInit {
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
               toOrfrom:"to",
               date:(new Date()).toString(),
-          })
+          });
           this.updateData()
       });
 
@@ -87,10 +89,8 @@ export class ChatComponent implements OnInit {
   }
 
   updateData(){
-      this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').get().subscribe((doc) => {
-          this.test = doc.data().messages
-          console.log(this.test)
-          console.log(this.current.conversationdata)
+      this.afs.collection('conversations').doc(this.db.currentChatKey).get().subscribe((doc) => {
+            this.test = doc.data().conversation.messages
           this.current.conversationdata = this.test;
       });
   }
