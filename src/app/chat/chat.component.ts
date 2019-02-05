@@ -45,43 +45,34 @@ export class ChatComponent implements OnInit {
       else{
           this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
               this.info = info;
-              console.log(info);
               this.updateData()
               this.db.updateLocalConversation()
-              console.log(this.current.conversationdata);
           });
       }
   }
 
   submit(){
 
-      console.log('form submitted');
-      console.log(this.input);
       this.searchterm = this.input;
-      console.log(this.current.conversationdata);
       this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
 
 
           this.info = info;
-          console.log(this.current);
           this.current.conversationdata.push({
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
               toOrfrom:"to",
               date:(new Date()).toDateString()
           });
 
-          console.log(this.current);
-
-          console.log(this.message);
-
-          // this.db.newMessage(this.current);
-
           this.db.addChat({
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
               toOrfrom:"to",
               date:(new Date()).toString(),
           });
-          this.updateData()
+
+          this.updateData();
+          this.input = "";
+
       });
 
 
@@ -90,7 +81,7 @@ export class ChatComponent implements OnInit {
 
   updateData(){
       this.afs.collection('conversations').doc(this.db.currentChatKey).get().subscribe((doc) => {
-            this.test = doc.data().conversation.messages
+          this.test = doc.data().conversation.messages;
           this.current.conversationdata = this.test;
       });
   }

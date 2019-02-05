@@ -1,9 +1,9 @@
-<mat-toolbar color="primary">
-  <span class="toolbar" [routerLink]="['/login']"><a>Switch Accounts</a></span>
-  <span class="toolbar" [routerLink]="['/list']"><a>Select A Chat</a></span>
-  <span class="toolbar" [routerLink]="['/chat']"><a>Chat</a></span>
-  <span class="toolbar" [routerLink]="['/profile']"><a>Profile</a></span>
+<mat-toolbar color="primary" class="stickytoolbar">
+  <div class="toolbar" [routerLink]="['/login']"><a>Switch Accounts</a></div>
+  <div class="toolbar" [routerLink]="['/list']"><a>Select A Chat</a></div>
+  <div class="toolbar" [routerLink]="['/profile']"><a>Profile</a></div>
 </mat-toolbar>
+
 
 <div class="wrapper">
   <div class="buttons">
@@ -18,7 +18,7 @@
   <div *ngIf="this.ab?.currentUserInfo.conversationIds?.length === 0">
     <h4 class="noContent">You don't have any chats. Click 'Add a new chat' to get started!</h4>
   </div>
-  <div *ngFor="let index of this.ab?.currentUserInfo.conversationIds; let i = index">
+  <div *ngFor="let index of this.ab?.currentUserInfo.conversationIds; let i = index" class="conversation">
     <mat-card (click)="this.ab.setCurrentConversationId(this.ab?.currentUserInfo.conversationIds[i])">
       <mat-card-title>{{this.ab?.pastChats[i]?.conversation.title}}</mat-card-title>
       <mat-card-subtitle>{{this.ab?.pastChats[i]?.conversation.admin}}</mat-card-subtitle>
