@@ -51,9 +51,14 @@ export class GiphyTitlesComponent implements OnInit {
     this.noContentInList = false;
     this.id++;
   }
-
-  deleteChat() {
+  setToggleTrue () {
     this.deleteToggle = true;
+  }
+  // this will delete the conversation from both the users view and firebase
+  deleteConversation(key, i) {
+    this.afs.collection('conversations').doc(key).delete();
+    this.ab.currentUserInfo.conversationIds.splice(i, 1);
+    this.afs.collection('users').doc(this.ab.currentDocumentKey).update(this.ab.currentUserInfo)
   }
 
   unDelete() {

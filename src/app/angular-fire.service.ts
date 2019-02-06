@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore'
 import { AngularFireAuth} from "@angular/fire/auth";
 import {Router} from '@angular/router';
+import {ICurrentUserInfo} from './shared/currentUserInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -149,7 +150,7 @@ export class AngularFireService {
 
   }
   refresh(){
-    this.updateLocalConversation()
+    this.updateLocalConversation();
     this.updateLocalInfo()
   }
 
