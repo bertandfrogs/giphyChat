@@ -2,7 +2,18 @@ h1{
     margin:0;
 }
 .toolbar{
+    margin:0px;
     margin-right: 20px;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.toolbar:focus {
+    outline:none;
+}
+.toolbar:hover{
+    cursor: pointer;
 }
 .whitecard{
     display:flex;
@@ -12,44 +23,55 @@ h1{
     bottom:1rem;
     width:300px;
     height:20px;
-    margin:0 auto;
+    margin-left:25px;
+}
 
-}
 .stickytoolbar{
+    margin:0px;
 }
+
 .chatinput{
 }
+
 .secondary{
     height:100%;
-    padding:100px 30% 100px 30%;
+    padding:0px 30% 100px 30%;
 }
+
 .submit{
     margin:0px 0px 0px 50px;
     width:2vw;
 }
+
 #to {
     margin-left:50%;
 }
+
 #from{
     margin-right:50%;
 }
+
 .messages{
     display:flex;
     flex-flow:row;
     flex-wrap: wrap;
 }
+
 .messagefield{
     display:flex;
     flex-flow:column;
     width:300px;
 }
+
 h6{
     margin:0;
     color:grey;
 }
+
 .gif{
     width:200px;
 }
+
 .deliverTo{
     display:flex;
     justify-content: center;
@@ -59,7 +81,7 @@ h6{
     top: 0;
     background-color:white;
     width:100%;
-    height:100px;
+    height:75px;
 }
 
 
