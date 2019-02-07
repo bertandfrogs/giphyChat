@@ -3,6 +3,8 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import {Observable} from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore'
 import { AngularFireAuth} from "@angular/fire/auth";
+import {Router} from '@angular/router';
+import {ICurrentUserInfo} from './shared/currentUserInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +15,14 @@ export class AngularFireService {
   currentUserInfo = {};
   currentConversationInfo = {};
   currentDocumentKey: string;
+  currentChatKey : string;
   pastChats = [];
+  hexColor: string;
 
   constructor( private db: AngularFireDatabase,
                private afs: AngularFirestore,
-               private afAuth: AngularFireAuth
+               private afAuth: AngularFireAuth,
+               private router: Router
                ) {
   }
 
@@ -51,11 +56,16 @@ export class AngularFireService {
       });
 
       if (userFound == false) {
+
+
         //push user to firestore
         console.log(data);
-        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []});
-        console.log("user not detected");
-        console.log('created user');
+        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: 'data', imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []}).then((response)=> {
+          this.currentDocumentKey = response.id;
+          this.assignUserColor();
+          console.log("user not detected");
+          console.log('created user');
+        });
       }
 
     });
@@ -105,7 +115,7 @@ export class AngularFireService {
 
 
   updateLocalConversation(){
-    this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').get().subscribe(doc => {
+    this.afs.collection('conversations').doc(this.currentChatKey).get().subscribe(doc => {
       this.currentConversationInfo= doc.data();
       console.log(this.currentConversationInfo);
     })
@@ -113,13 +123,12 @@ export class AngularFireService {
 
   addChat(data){
     // @ts-ignore
-
-    console.log(this.currentConversationInfo)
+    console.log(this.currentConversationInfo);
     // @ts-ignore
-    this.currentConversationInfo.messages.push(data)
+    this.currentConversationInfo.conversation.messages.push(data);
 
     console.log(data);
-    this.afs.collection('conversations').doc('TIXOcwhpXZjpW00OaTMl').update(this.currentConversationInfo)
+    this.afs.collection('conversations').doc(this.currentChatKey).update(this.currentConversationInfo)
 
   }
   getPastConversations() {
@@ -135,9 +144,26 @@ export class AngularFireService {
 
   }
 
+  setCurrentConversationId (element) {
+    // var target = element.target || element.srcElement;
+    // var id = target.id;
+    // var parent = target.parentNode.id;
+    // console.log(target);
+    // console.log(id);
+    console.log(element);
+    this.router.navigate(['/chat']);
+    this.currentChatKey = element;
+
+  }
   refresh(){
-    this.updateLocalConversation()
+    this.updateLocalConversation();
     this.updateLocalInfo()
+  }
+
+  assignUserColor () {
+    const hexColor = ['#008744', '#0057e7', '#d62d20', '#ffa700', '#6739B6', '#E91E64', '#9C27B0'];
+    this.currentUserInfo.hex = hexColor[Math.floor(Math.random() * 7)];
+    this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
   }
 
 

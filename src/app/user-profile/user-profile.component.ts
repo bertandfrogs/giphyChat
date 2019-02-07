@@ -26,7 +26,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   logOut () {
-    this.db.logOut().then( ()=> {this.router.navigate(['/login']);
-                                           console.log('user has been logged off')})
+    this.db.logOut().then( ()=> {window.location.reload()});
   }
 }
