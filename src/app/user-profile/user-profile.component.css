@@ -1,5 +1,16 @@
-.toolbar{
+.toolbar {
+    margin:0px;
     margin-right: 20px;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.toolbar:focus {
+    outline:none;
+}
+.toolbar:hover{
+    cursor: pointer;
 }
 
 .profile {
@@ -20,14 +31,12 @@ img {
     align-items: center;
     flex-direction: column;
     margin: 50px 0;
-
 }
 
 #button-container {
     position: absolute;
     bottom: 10px;
     right: 10px;
-
     width: 100%;
     display: flex;
     justify-content: flex-end;

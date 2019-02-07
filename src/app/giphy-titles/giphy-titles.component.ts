@@ -39,6 +39,11 @@ export class GiphyTitlesComponent implements OnInit {
         this.router.navigate(['/login']);
         console.log(this.afAuth.auth.currentUser);
     }
+    else{
+        this.ab.getUserList();
+        this.ab.updateLocalInfo();
+    }
+
   }
 
   addChat() {
