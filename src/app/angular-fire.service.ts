@@ -66,6 +66,7 @@ export class AngularFireService {
           this.assignUserColor();
           console.log("user not detected");
           console.log('created user');
+          window.location.reload()
         });
       }
 
@@ -163,8 +164,12 @@ export class AngularFireService {
 
   assignUserColor () {
     const hexColor = ['#008744', '#0057e7', '#d62d20', '#ffa700', '#6739B6', '#E91E64', '#9C27B0'];
+    // @ts-ignore
     this.currentUserInfo.hex = hexColor[Math.floor(Math.random() * 7)];
     this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
+    // @ts-ignore
+    this.hexColor = this.currentUserInfo.hex;
+    console.log(this.hexColor)
   }
 
   getUserList() {

@@ -6,12 +6,12 @@
 
 <mat-card class="profile" *ngIf="person">
   <mat-card-header>
-    <mat-card-title>Current user: {{person.displayName}}</mat-card-title>
+    <mat-card-title >Current user: <span [ngStyle]="{'color': this.afs.currentUserInfo.hex}">{{person.displayName}}</span></mat-card-title>
     <mat-card-subtitle>{{person.email}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="content">
     <div>
-      <img [src]="person.photoURL">
+      <img [ngStyle]="{'border-color': this.afs.currentUserInfo.hex}" [src]="person.photoURL">
     </div>
   </mat-card-content>
   <div id="button-container">
