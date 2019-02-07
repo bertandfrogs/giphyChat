@@ -39,10 +39,6 @@ export class GiphyTitlesComponent implements OnInit {
         this.router.navigate(['/login']);
         console.log(this.afAuth.auth.currentUser);
     }
-    else{
-        this.ab.updateLocalInfo();
-    }
-
   }
 
   addChat() {
@@ -57,6 +53,7 @@ export class GiphyTitlesComponent implements OnInit {
   // this will delete the conversation from both the users view and firebase
   deleteConversation(key, i) {
     this.afs.collection('conversations').doc(key).delete();
+    // @ts-ignore
     this.ab.currentUserInfo.conversationIds.splice(i, 1);
     this.afs.collection('users').doc(this.ab.currentDocumentKey).update(this.ab.currentUserInfo)
   }

@@ -17,6 +17,7 @@ export class AngularFireService {
   currentDocumentKey: string;
   currentChatKey : string;
   pastChats = [];
+  hexColor: string;
 
   constructor( private db: AngularFireDatabase,
                private afs: AngularFirestore,
@@ -55,11 +56,16 @@ export class AngularFireService {
       });
 
       if (userFound == false) {
+
+
         //push user to firestore
         console.log(data);
-        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: "data", imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []});
-        console.log("user not detected");
-        console.log('created user');
+        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: 'data', imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []}).then((response)=> {
+          this.currentDocumentKey = response.id;
+          this.assignUserColor();
+          console.log("user not detected");
+          console.log('created user');
+        });
       }
 
     });
@@ -152,6 +158,12 @@ export class AngularFireService {
   refresh(){
     this.updateLocalConversation();
     this.updateLocalInfo()
+  }
+
+  assignUserColor () {
+    const hexColor = ['#008744', '#0057e7', '#d62d20', '#ffa700', '#6739B6', '#E91E64', '#9C27B0'];
+    this.currentUserInfo.hex = hexColor[Math.floor(Math.random() * 7)];
+    this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
   }
 
 
