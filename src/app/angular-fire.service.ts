@@ -16,6 +16,7 @@ export class AngularFireService {
   currentDocumentKey: string;
   currentChatKey : string;
   pastChats = [];
+  userList = [];
 
   constructor( private db: AngularFireDatabase,
                private afs: AngularFirestore,
@@ -149,11 +150,21 @@ export class AngularFireService {
 
   }
   refresh(){
-    this.updateLocalConversation()
-    this.updateLocalInfo()
+    this.updateLocalConversation();
+    this.updateLocalInfo();
   }
 
+  getUserList(){
+      this.afs.collection('users').get().subscribe(documents => {
+          documents.forEach(doc => {
+              if(this.afAuth.auth.currentUser.displayName != doc.data().displayName){
+                  this.userList.push(doc.data());
+              }
+          })
+      });
 
+
+  }
 }
 
 
