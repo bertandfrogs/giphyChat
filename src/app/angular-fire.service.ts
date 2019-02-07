@@ -12,7 +12,7 @@ import {ICurrentUserInfo} from './shared/currentUserInfo';
 export class AngularFireService {
 
   users: Observable<any[]>;
-  currentUserInfo = {};
+  currentUserInfo: {};
   currentConversationInfo = {};
   currentDocumentKey: string;
   currentChatKey : string;
@@ -90,11 +90,11 @@ export class AngularFireService {
     this.afs.collection('conversation').doc(this.currentDocumentKey).update(data.conversationdata)
   }
 
-  newConversation(title){
+  newConversation(title, members){
 
     let conversation ={
       title: title,
-      users: [],
+      users: members,
       messages:[],
       admin: this.afAuth.auth.currentUser.displayName,
     };
@@ -163,6 +163,7 @@ export class AngularFireService {
 
   assignUserColor () {
     const hexColor = ['#008744', '#0057e7', '#d62d20', '#ffa700', '#6739B6', '#E91E64', '#9C27B0'];
+    //@ts-ignore
     this.currentUserInfo.hex = hexColor[Math.floor(Math.random() * 7)];
     this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
   }
@@ -170,7 +171,7 @@ export class AngularFireService {
   getUserList() {
       this.afs.collection('users').get().subscribe(documents => {
           documents.forEach(doc => {
-              if (this.afAuth.auth.currentUser.displayName != doc.data().displayName) {
+              if (this.afAuth.auth.currentUser.uid != doc.data().uid) {
                   this.userList.push(doc.data());
               }
           })
