@@ -50,6 +50,7 @@ export class GiphyTitlesComponent implements OnInit {
     this.openDialog();
     this.noContentInList = false;
     this.id++;
+
   }
 
   deleteChat() {

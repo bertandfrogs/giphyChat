@@ -2,7 +2,6 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {DialogData} from "./dialogData";
 import {AngularFireService} from "../../angular-fire.service";
-import {selectValueAccessor} from "../../../../node_modules/@angular/forms/src/directives/shared";
 
 @Component({
   selector: 'app-dialog',
