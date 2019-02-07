@@ -3,6 +3,15 @@
     <mat-form-field>
         <input matInput required [(ngModel)]="data.chatName">
     </mat-form-field>
+
+    <p>Select a user to chat with.</p>
+    <mat-form-field>
+        <mat-select>
+            <mat-option *ngFor="let user of uList"
+                        [value]="user.displayName"
+                        (onSelectionChange)="getMember($event.source.value)">{{ user.displayName }}</mat-option>
+        </mat-select>
+    </mat-form-field>
 </mat-dialog-content>
 
 
