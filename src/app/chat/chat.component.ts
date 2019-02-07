@@ -75,6 +75,10 @@ export class ChatComponent implements OnInit {
           this.updateData();
           this.input = "";
 
+          let element = document.getElementById("to");
+          console.log(element)
+          element.scrollTop = element.scrollHeight;
+
       });
 
 

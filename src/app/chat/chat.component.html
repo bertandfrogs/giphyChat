@@ -12,6 +12,7 @@
         <ng-container *ngFor="let gif of this.current.conversationdata">
             <div class="messagefield" id="{{gif.toOrfrom}}"><h6>{{gif.date | date:'yyyy-MM-dd HH:mm:ss' }}</h6><img src="{{gif.url}}" alt="{{searchterm}}" class="gif"></div>
         </ng-container>
+        <div class="spacer"></div>
     </div>
 </div>
 
