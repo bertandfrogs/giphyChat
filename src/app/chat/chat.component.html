@@ -4,7 +4,7 @@
     <div class="toolbar" [routerLink]="['/profile']"><a>Profile</a></div>
 </mat-toolbar>
 
-<div class="deliverTo"><h1>Chat with {{this.current.deliverto}}</h1></div>
+<div class="deliverTo"><h1>Chat with <h1 *ngFor="let user of this.current?.deliverto">{{user}}</h1></h1></div>
 
 <div class="secondary">
 
@@ -12,6 +12,7 @@
         <ng-container *ngFor="let gif of this.current.conversationdata">
             <div class="messagefield" id="{{gif.toOrfrom}}"><h6>{{gif.date | date:'yyyy-MM-dd HH:mm:ss' }}</h6><img src="{{gif.url}}" alt="{{searchterm}}" class="gif"></div>
         </ng-container>
+        <div class="spacer"></div>
     </div>
 </div>
 

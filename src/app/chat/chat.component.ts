@@ -20,10 +20,11 @@ export class ChatComponent implements OnInit {
   input = "";
   conversation;
   test;
+  userArray = [];
 
   current = new Conversation(
 
-      "unknown",
+      [],
 
       []
 
@@ -44,8 +45,10 @@ export class ChatComponent implements OnInit {
       else{
           this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
               this.info = info;
+              this.userArray = [];
               this.updateData()
               this.db.updateLocalConversation()
+              this.currentUsers()
           });
       }
   }
@@ -72,6 +75,10 @@ export class ChatComponent implements OnInit {
           this.updateData();
           this.input = "";
 
+          let element = document.getElementById("to");
+          console.log(element)
+          element.scrollTop = element.scrollHeight;
+
       });
 
 
@@ -84,6 +91,15 @@ export class ChatComponent implements OnInit {
           this.current.conversationdata = this.test;
       });
   }
+
+  currentUsers(){
+      this.afs.collection('conversations').doc(this.db.currentChatKey).get().subscribe( (doc) => {
+          this.userArray = doc.data().conversation.users;
+          this.current.deliverto.push(this.userArray);
+          console.log(this.userArray);
+      })
+  }
+
 
 }
 
