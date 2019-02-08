@@ -12,12 +12,13 @@ import {ICurrentUserInfo} from './shared/currentUserInfo';
 export class AngularFireService {
 
   users: Observable<any[]>;
-  currentUserInfo: {};
+  currentUserInfo:any= {
+    conversationIds : []
+  };
   currentConversationInfo = {};
   currentDocumentKey: string;
   currentChatKey : string;
   pastChats = [];
-  hexColor: string;
   userList = [];
 
   constructor( private db: AngularFireDatabase,
@@ -61,12 +62,12 @@ export class AngularFireService {
 
         //push user to firestore
         console.log(data);
-        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: 'data', imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []}).then((response)=> {
+        this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: this.assignUserColor(), imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []}).then((response)=> {
           this.currentDocumentKey = response.id;
-          this.assignUserColor();
           console.log("user not detected");
           console.log('created user');
-          this.getUser(data)
+          this.getUser(data);
+          this.assignUserColor();
           // window.location.reload()
         });
       }
@@ -163,12 +164,14 @@ export class AngularFireService {
     this.updateLocalInfo()
   }
 
-  assignUserColor () {
+  assignUserColor (): string {
     const hexColor = ['#008744', '#0057e7', '#d62d20', '#ffa700', '#6739B6', '#E91E64', '#9C27B0', '#6ed3cf', '#9068be', '#e1e8f0', '#e62739', '#7dce94', '#fa625f', '#600473', '#313d4b', '#DCAE1D'];
     // @ts-ignore
-    this.currentUserInfo.hex = hexColor[Math.floor(Math.random() * 16)];
+      return hexColor[Math.floor(Math.random() * 16)];
 
-    this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
+    // this.currentUserInfo.hex = hexColor[Math.floor(Math.random() * 16)];
+    //
+    // this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
   }
 
   getUserList() {
