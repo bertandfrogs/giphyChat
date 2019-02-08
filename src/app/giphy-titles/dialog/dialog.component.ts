@@ -35,11 +35,6 @@ export class DialogComponent implements OnInit{
     if(user.isUserInput == true){
       console.log(this.userId);
 
-      // if(Number(this.data.chatMembers.find(x => x == this.userId)) == -1){
-      //   this.data.chatMembers.push(this.userId);
-      // }
-      //
-
       for(let i = 0; i < this.data.chatMembers.length; i++){
         if(this.data.chatMembers[i] == this.userId){
           duplicateUser = true;
@@ -48,7 +43,6 @@ export class DialogComponent implements OnInit{
       if(duplicateUser != true){
           this.data.chatMembers.push(this.userId);
       }
-
 
     }
   }
