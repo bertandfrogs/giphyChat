@@ -181,7 +181,13 @@ export class AngularFireService {
       });
   }
 
-}
+  findUserFromUserID(userId){
+    return  this.afs.collection('users').get()
+
+    }
+
+
+  }
 
 
 
