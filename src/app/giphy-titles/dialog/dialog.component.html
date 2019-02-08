@@ -8,8 +8,8 @@
     <mat-form-field>
         <mat-select>
             <mat-option *ngFor="let user of uList"
-                        [value]="user.displayName"
-                        (onSelectionChange)="getMember($event.source.value)">{{ user.displayName }}</mat-option>
+                        [value]="user.uid"
+                        (onSelectionChange)="getMember($event)">{{ user.displayName }}</mat-option>
         </mat-select>
     </mat-form-field>
 </mat-dialog-content>
