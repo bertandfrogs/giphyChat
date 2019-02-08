@@ -21,6 +21,7 @@ export class ChatComponent implements OnInit {
   conversation;
   test;
   userArray = [];
+  displayNameArray = [];
 
   current = new Conversation(
 
@@ -46,6 +47,8 @@ export class ChatComponent implements OnInit {
           this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
               this.info = info;
               this.userArray = [];
+              this.displayNameArray = []
+              this.current.deliverto = [];
               this.updateData()
               this.db.updateLocalConversation()
               this.currentUsers()
@@ -94,12 +97,40 @@ export class ChatComponent implements OnInit {
 
   currentUsers(){
       this.afs.collection('conversations').doc(this.db.currentChatKey).get().subscribe( (doc) => {
-          this.userArray = doc.data().conversation.users;
-          this.current.deliverto.push(this.userArray);
-          console.log(this.userArray);
-      })
-  }
 
+          this.userArray = doc.data().conversation.users;
+
+          console.log(this.userArray);
+
+          console.log(this.db.findUserFromUserID(this.userArray[0]))
+
+               for (let i = 0; i < this.userArray.length; i++){
+                    console.log('lookin')
+                    this.db.findUserFromUserID(this.userArray[i]).subscribe( (doc) => {
+
+                        doc.forEach(document => {
+
+                            let ref = document.data();
+
+                            if(this.userArray[i] === ref.uid){
+                                console.log(ref.displayName)
+                                this.displayNameArray.push(ref.displayName);
+                                console.log(this.displayNameArray)
+                            }
+
+                        })
+
+                        this.current.deliverto = this.displayNameArray
+                        console.log(this.displayNameArray);
+
+                    });
+               }
+
+
+
+      })
+
+  }
 
 }
 
