@@ -40,6 +40,7 @@ export class GiphyTitlesComponent implements OnInit {
         console.log(this.afAuth.auth.currentUser);
     }
     else{
+        this.ab.userList = [];
         this.ab.getUserList();
         this.ab.updateLocalInfo();
     }
