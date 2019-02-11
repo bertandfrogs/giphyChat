@@ -22,6 +22,7 @@ export class ChatComponent implements OnInit {
   test;
   userArray = [];
   displayNameArray = [];
+  userHex = [];
 
   current = new Conversation(
 
@@ -49,6 +50,7 @@ export class ChatComponent implements OnInit {
               this.userArray = [];
               this.displayNameArray = []
               this.current.deliverto = [];
+              this.userHex = [];
               this.updateData()
               this.db.updateLocalConversation()
               this.currentUsers()
@@ -96,9 +98,12 @@ export class ChatComponent implements OnInit {
   }
 
   currentUsers(){
+
+
       this.afs.collection('conversations').doc(this.db.currentChatKey).get().subscribe( (doc) => {
 
           this.userArray = doc.data().conversation.users;
+          let admin = doc.data().conversation.admin;
 
           console.log(this.userArray);
 
@@ -106,17 +111,23 @@ export class ChatComponent implements OnInit {
 
                for (let i = 0; i < this.userArray.length; i++){
                     console.log('lookin')
+
                     this.db.findUserFromUserID(this.userArray[i]).subscribe( (doc) => {
 
                         doc.forEach(document => {
 
                             let ref = document.data();
 
-                            if(this.userArray[i] === ref.uid){
-                                console.log(ref.displayName)
-                                this.displayNameArray.push(ref.displayName);
-                                console.log(this.displayNameArray)
-                            }
+                                if(this.userArray[i] === ref.uid){
+                                    console.log(ref.displayName)
+                                    this.displayNameArray.push(ref.displayName);
+                                    this.userHex.push(ref.hex);
+                                    console.log(this.displayNameArray)
+                                }
+                                if(admin === ref.displayName){
+                                    this.displayNameArray.push(admin)
+                                    this.userHex.push(ref.hex);
+                                }
 
                         })
 
