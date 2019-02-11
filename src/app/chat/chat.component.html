@@ -3,14 +3,14 @@
     <div class="toolbar" [routerLink]="['/profile']"><a>Profile</a></div>
 </mat-toolbar>
 
-<div class="deliverTo"><h2>Chat with :</h2><h2 *ngFor="let user of this.current?.deliverto; let i = index" [ngStyle]="{'color': this.userHex[i]}">{{user}}</h2></div>
+<div class="deliverTo"><h2>Chat with :</h2><h2 *ngFor="let user of this.current?.deliverto; let i = index" [ngStyle]="{'color': this.userHex[i]}" [ngClass]="this.currentUser === user ? 'hide' : 'show'">{{user}}</h2></div>
 
 
 <div class="secondary">
 
     <div class="messages">
         <ng-container *ngFor="let gif of this.current.conversationdata">
-            <div class="messagefield" id="{{gif.toOrfrom}}"><h6>{{gif.date | date:'yyyy-MM-dd HH:mm:ss' }}</h6><img src="{{gif.url}}" alt="{{searchterm}}" class="gif"></div>
+            <div class="messagefield" [ngClass]="gif.toOrfrom === this.currentUser ? 'to' : 'from'"><h6>{{gif.date | date:'yyyy-MM-dd HH:mm:ss' }}</h6><img src="{{gif.url}}" alt="{{searchterm}}" class="gif"></div>
         </ng-container>
         <div class="spacer"></div>
     </div>
