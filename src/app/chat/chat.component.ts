@@ -80,23 +80,23 @@ export class ChatComponent implements OnInit {
       this.searchterm = this.input;
       this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
 
+          let random = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
 
           this.info = info;
           this.current.conversationdata.push({
-              url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
+              url: this.info.data[random].images.downsized.url,
               toOrfrom:this.currentUser,
               date:(new Date()).toDateString(),
               hex:this.currentHex
           });
 
           this.db.addChat({
-              url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
+              url: this.info.data[random].images.downsized.url,
               toOrfrom:this.currentUser,
               date:(new Date()).toString(),
               hex:this.currentHex
           });
 
-          this.updateData();
           this.input = "";
 
       });
@@ -107,8 +107,7 @@ export class ChatComponent implements OnInit {
 
   updateData(){
       this.afs.collection('conversations').doc(this.db.currentChatKey).get().subscribe((doc) => {
-          this.test = doc.data().conversation.messages;
-          this.current.conversationdata = this.test;
+          this.current.conversationdata = doc.data().conversation.messages;
       });
   }
 
@@ -125,7 +124,6 @@ export class ChatComponent implements OnInit {
           console.log(this.db.findUserFromUserID(this.userArray[0]))
 
                for (let i = 0; i < this.userArray.length; i++){
-                    console.log('lookin')
 
                     this.db.findUserFromUserID(this.userArray[i]).subscribe( (doc) => {
 
