@@ -22,8 +22,8 @@ export class GiphyTitlesComponent implements OnInit {
 
 
   chatName: string;
-  chatMembers: string[];
-  conversation: string[];
+  chatMembers: string[] = [];
+  conversation: string[] = [];
 
   constructor(public dialog: MatDialog,
               public fireService: AngularFireService,
@@ -85,7 +85,8 @@ export class GiphyTitlesComponent implements OnInit {
         if(result != undefined){
             this.chatName = result;
             // this.chatList.push({name: this.chatName, id: this.id});
-            this.ab.newConversation(this.chatName)
+            this.ab.newConversation(this.chatName);
+            console.log(this.chatMembers);
         }
       }
     );

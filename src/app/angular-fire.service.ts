@@ -145,14 +145,10 @@ export class AngularFireService {
   }
 
   setCurrentConversationId (element) {
-    // var target = element.target || element.srcElement;
-    // var id = target.id;
-    // var parent = target.parentNode.id;
-    // console.log(target);
-    // console.log(id);
     console.log(element);
     this.router.navigate(['/chat']);
     this.currentChatKey = element;
+
 
   }
   refresh(){
@@ -175,6 +171,8 @@ export class AngularFireService {
               }
           })
       });
+
+
   }
 
 }

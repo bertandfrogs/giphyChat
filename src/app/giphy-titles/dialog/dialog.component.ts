@@ -43,7 +43,7 @@ export class DialogComponent{
     console.log(this.counter++);
     console.log("temp: " + this.temp);
     console.log("userId: " + this.userId);
-
+    console.log(this.uList);
     console.log("final userId: " + this.selectedUserId);
 
   }
