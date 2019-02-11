@@ -144,9 +144,11 @@ export class AngularFireService {
     // @ts-ignore
     for (let conversation of this.currentUserInfo.conversationIds) {
       this.afs.collection('conversations').doc(conversation).get().subscribe( (doc) => {
-        this.pastChats.push(doc.data());
-        console.log(this.pastChats)
-
+          console.log(doc.data());
+          if(doc.data() !== undefined){
+              this.pastChats.push(doc.data());
+              console.log(this.pastChats)
+          }
       })
     }
 
