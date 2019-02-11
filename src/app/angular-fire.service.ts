@@ -215,9 +215,21 @@ export class AngularFireService {
     }
 
     addTargetUserInfo(ref, id, docId){
+        let duplicateId = false;
         this.targetUserInfo = ref;
         //@ts-ignore
-        this.targetUserInfo.conversationIds.push(id);
+        for(let i = 0; i < this.targetUserInfo.conversationIds.length; i++) {
+            //@ts-ignore
+            if(this.targetUserInfo.conversationIds[i] == id){
+                duplicateId = true;
+            }
+        }
+
+        if(duplicateId == false){
+            //@ts-ignore
+            this.targetUserInfo.conversationIds.push(id);
+        }
+
         this.afs.collection("users").doc(docId).update(this.targetUserInfo);
         // console.log(ref);
         //     this.afs.collection('users').doc(ref).get().subscribe(doc => {
