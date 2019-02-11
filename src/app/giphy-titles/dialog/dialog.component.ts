@@ -42,7 +42,6 @@ export class DialogComponent implements OnInit{
       if(duplicateUser != true){
           this.data.chatMembers.push(this.userId);
       }
-
     }
   }
 }

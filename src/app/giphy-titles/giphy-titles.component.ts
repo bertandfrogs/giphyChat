@@ -5,6 +5,7 @@ import {AngularFireService} from "../angular-fire.service";
 import { AngularFireAuth} from "@angular/fire/auth";
 import {Router} from "@angular/router";
 import { AngularFirestore } from 'angularfire2/firestore'
+import {AuthLoginService} from "../auth-login/auth-login.service";
 
 
 
@@ -31,6 +32,7 @@ export class GiphyTitlesComponent implements OnInit {
               private router: Router,
               private ab: AngularFireService,
               private afs: AngularFirestore,
+              private db: AuthLoginService
   ) {
   }
 
@@ -86,11 +88,31 @@ export class GiphyTitlesComponent implements OnInit {
         if(result != undefined){
             this.chatName = result;
             // this.chatList.push({name: this.chatName, id: this.id});
-            this.ab.newConversation(this.chatName, this.chatMembers)
+            this.ab.newConversation(this.chatName, this.chatMembers);
+            // this.addTarget(this.chatMembers);
         }
       }
     );
 
   }
-}
 
+  // private addTarget(target) {
+  //
+  //     this.afs.collection('users').get().subscribe( (doc) => {
+  //
+  //         console.log('lookin');
+  //
+  //         for(let i = 0; i < target.length; i++) {
+  //             doc.forEach(document => {
+  //
+  //                 let ref = document.data();
+  //
+  //                 if (target[i] === ref.uid) {
+  //                     ref.conversationIds.push(this.ab.createdId);
+  //                     console.log(this.ab.createdId);
+  //                 }
+  //             });
+  //         }
+  //     })
+  // }
+}
