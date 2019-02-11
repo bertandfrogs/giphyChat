@@ -20,6 +20,8 @@ export class AngularFireService {
   currentChatKey : string;
   pastChats = [];
   userList = [];
+  createdId = "";
+  targetUserInfo : { };
 
   constructor( private db: AngularFireDatabase,
                private afs: AngularFirestore,
@@ -107,11 +109,13 @@ export class AngularFireService {
           .then(docRef => {
               // console.log(this.currentDocumentKey);
               console.log("Document written with ID: ", docRef.id);
+              this.createdId = docRef.id;
               console.log(this.currentUserInfo);
               // @ts-ignore
               this.currentUserInfo.conversationIds.push(docRef.id);
               this.afs.collection('users').doc(this.currentDocumentKey).update(this.currentUserInfo);
             this.getPastConversations();
+            this.addTarget(conversation.users);
           })
           .catch(error => console.error("Error adding document: ", error))
 
@@ -190,7 +194,41 @@ export class AngularFireService {
     }
 
 
+    addTarget(target) {
+        this.afs.collection('users').get().subscribe( (doc) => {
+
+            console.log('lookin');
+            console.log(target.length);
+
+            for(let i = 0; i < target.length; i++) {
+                doc.forEach(document => {
+
+                    let ref = document.data();
+
+                    if (target[i] === ref.uid) {
+                        ref.conversationIds.push(this.createdId);
+                        console.log(this.createdId);
+                        this.addTargetUserInfo(ref, this.createdId, document.id)
+                    }
+                });
+            }
+        })
+    }
+
+    addTargetUserInfo(ref, id, docId){
+        this.targetUserInfo = ref;
+        //@ts-ignore
+        this.targetUserInfo.conversationIds.push(id);
+        this.afs.collection("users").doc(docId).update(this.targetUserInfo);
+        // console.log(ref);
+        //     this.afs.collection('users').doc(ref).get().subscribe(doc => {
+        //         this.targetUserInfo = doc.data();
+        //         console.log(this.targetUserInfo);
+        //     });
+      }
   }
+
+
 
 
 
