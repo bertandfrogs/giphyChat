@@ -20,7 +20,8 @@ export class ChatComponent implements OnInit {
   input = "";
   conversation;
   test;
-  currentUser : string
+  currentUser : string;
+  currentHex : string;
   userArray = [];
   displayNameArray = [];
   userHex = [];
@@ -53,6 +54,8 @@ export class ChatComponent implements OnInit {
               this.current.deliverto = [];
               this.userHex = [];
               this.currentUser = this.db.currentUser;
+              this.currentHex = this.db.currentUserHex;
+              console.log(this.currentHex)
               this.updateData()
               this.db.updateLocalConversation()
               this.currentUsers()
@@ -70,13 +73,15 @@ export class ChatComponent implements OnInit {
           this.current.conversationdata.push({
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
               toOrfrom:this.currentUser,
-              date:(new Date()).toDateString()
+              date:(new Date()).toDateString(),
+              hex:this.currentHex
           });
 
           this.db.addChat({
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
               toOrfrom:this.currentUser,
               date:(new Date()).toString(),
+              hex:this.currentHex
           });
 
           this.updateData();
