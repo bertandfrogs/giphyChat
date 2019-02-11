@@ -80,22 +80,18 @@ export class ChatComponent implements OnInit {
       this.searchterm = this.input;
       this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
 
-          let random = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
-
           this.info = info;
-          this.current.conversationdata.push({
+          let random = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+          let giphy = {
               url: this.info.data[random].images.downsized.url,
               toOrfrom:this.currentUser,
               date:(new Date()).toDateString(),
               hex:this.currentHex
-          });
+          };
 
-          this.db.addChat({
-              url: this.info.data[random].images.downsized.url,
-              toOrfrom:this.currentUser,
-              date:(new Date()).toString(),
-              hex:this.currentHex
-          });
+          this.current.conversationdata.push(giphy);
+
+          this.db.addChat(giphy);
 
           this.input = "";
 
