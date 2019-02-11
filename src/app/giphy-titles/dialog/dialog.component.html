@@ -6,7 +6,7 @@
 
     <p>Select a user to chat with.</p>
     <mat-form-field>
-        <mat-select>
+        <mat-select multiple>
             <mat-option *ngFor="let user of uList"
                         [value]="user.uid"
                         (onSelectionChange)="getMember($event)">{{ user.displayName }}</mat-option>
