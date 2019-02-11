@@ -20,10 +20,13 @@ export class ChatComponent implements OnInit {
   input = "";
   conversation;
   test;
+  userArray = [];
+  displayNameArray = [];
+  userHex = [];
 
   current = new Conversation(
 
-      "unknown",
+      [],
 
       []
 
@@ -44,8 +47,13 @@ export class ChatComponent implements OnInit {
       else{
           this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
               this.info = info;
+              this.userArray = [];
+              this.displayNameArray = []
+              this.current.deliverto = [];
+              this.userHex = [];
               this.updateData()
               this.db.updateLocalConversation()
+              this.currentUsers()
           });
       }
   }
@@ -72,6 +80,10 @@ export class ChatComponent implements OnInit {
           this.updateData();
           this.input = "";
 
+          let element = document.getElementById("to");
+          console.log(element)
+          element.scrollTop = element.scrollHeight;
+
       });
 
 
@@ -83,6 +95,52 @@ export class ChatComponent implements OnInit {
           this.test = doc.data().conversation.messages;
           this.current.conversationdata = this.test;
       });
+  }
+
+  currentUsers(){
+
+
+      this.afs.collection('conversations').doc(this.db.currentChatKey).get().subscribe( (doc) => {
+
+          this.userArray = doc.data().conversation.users;
+          let admin = doc.data().conversation.admin;
+
+          console.log(this.userArray);
+
+          console.log(this.db.findUserFromUserID(this.userArray[0]))
+
+               for (let i = 0; i < this.userArray.length; i++){
+                    console.log('lookin')
+
+                    this.db.findUserFromUserID(this.userArray[i]).subscribe( (doc) => {
+
+                        doc.forEach(document => {
+
+                            let ref = document.data();
+
+                                if(this.userArray[i] === ref.uid){
+                                    console.log(ref.displayName)
+                                    this.displayNameArray.push(ref.displayName);
+                                    this.userHex.push(ref.hex);
+                                    console.log(this.displayNameArray)
+                                }
+                                if(admin === ref.displayName){
+                                    this.displayNameArray.push(admin)
+                                    this.userHex.push(ref.hex);
+                                }
+
+                        })
+
+                        this.current.deliverto = this.displayNameArray
+                        console.log(this.displayNameArray);
+
+                    });
+               }
+
+
+
+      })
+
   }
 
 }

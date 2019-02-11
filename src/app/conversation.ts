@@ -1,6 +1,6 @@
 export class Conversation {
     constructor(
-        public deliverto:string,
+        public deliverto = [],
         public conversationdata = []
     ){}
 }
