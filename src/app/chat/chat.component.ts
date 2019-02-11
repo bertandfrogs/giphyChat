@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit {
   input = "";
   conversation;
   test;
+  currentUser : string
   userArray = [];
   displayNameArray = [];
   userHex = [];
@@ -51,6 +52,7 @@ export class ChatComponent implements OnInit {
               this.displayNameArray = []
               this.current.deliverto = [];
               this.userHex = [];
+              this.currentUser = this.db.currentUser;
               this.updateData()
               this.db.updateLocalConversation()
               this.currentUsers()
@@ -67,22 +69,18 @@ export class ChatComponent implements OnInit {
           this.info = info;
           this.current.conversationdata.push({
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
-              toOrfrom:"to",
+              toOrfrom:this.currentUser,
               date:(new Date()).toDateString()
           });
 
           this.db.addChat({
               url: this.info.data[Math.floor(Math.random() * (5 - 1 + 1)) + 1].images.downsized.url,
-              toOrfrom:"to",
+              toOrfrom:this.currentUser,
               date:(new Date()).toString(),
           });
 
           this.updateData();
           this.input = "";
-
-          let element = document.getElementById("to");
-          console.log(element)
-          element.scrollTop = element.scrollHeight;
 
       });
 
@@ -142,6 +140,8 @@ export class ChatComponent implements OnInit {
       })
 
   }
+
+
 
 }
 
