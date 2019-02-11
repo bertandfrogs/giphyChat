@@ -30,17 +30,21 @@ export class DialogComponent implements OnInit{
   }
 
   getMember(user) {
+    console.log(user);
     let duplicateUser = false;
     this.userId = user.source.value;
 
     if(user.isUserInput == true){
         for(let i = 0; i < this.data.chatMembers.length; i++){
+          console.log(this.data.chatMembers[i]);
         if(this.data.chatMembers[i] == this.userId){
           duplicateUser = true;
+          console.log("duplicate user found");
         }
       }
       if(duplicateUser != true){
           this.data.chatMembers.push(this.userId);
+          console.log("new user found");
       }
     }
   }
