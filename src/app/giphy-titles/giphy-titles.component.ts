@@ -63,7 +63,9 @@ export class GiphyTitlesComponent implements OnInit {
     this.afs.collection('conversations').doc(key).delete();
     // @ts-ignore
     this.ab.currentUserInfo.conversationIds.splice(i, 1);
-    this.afs.collection('users').doc(this.ab.currentDocumentKey).update(this.ab.currentUserInfo)
+    this.afs.collection('users').doc(this.ab.currentDocumentKey).update(this.ab.currentUserInfo).then( () => {
+      this.ab.getPastConversations();
+    });
   }
 
   unDelete() {

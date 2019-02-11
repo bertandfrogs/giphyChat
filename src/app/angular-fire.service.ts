@@ -145,12 +145,17 @@ export class AngularFireService {
   getPastConversations() {
     this.pastChats = [];
     // @ts-ignore
+      console.log('getPastConversations() is working');
     for (let conversation of this.currentUserInfo.conversationIds) {
       this.afs.collection('conversations').doc(conversation).get().subscribe( (doc) => {
-        this.pastChats.push(doc.data());
-        console.log(this.pastChats)
-
-      })
+          console.log(doc.data());
+        if (!doc.data()) {
+            this.pastChats.push({ conversation: { title: 'this chat has been deleted'}});
+        } else  {
+            this.pastChats.push(doc.data());
+        }
+        console.log(this.pastChats);
+      });
     }
 
   }
