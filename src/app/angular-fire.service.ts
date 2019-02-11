@@ -19,6 +19,7 @@ export class AngularFireService {
   currentDocumentKey: string;
   currentChatKey : string;
   currentUser : string;
+  currentUserHex : string;
   pastChats = [];
   userList = [];
   createdId = "";
@@ -56,6 +57,7 @@ export class AngularFireService {
             this.currentUserInfo = ref;
             this.currentDocumentKey = doc.id;
             this.currentUser = ref.displayName;
+            this.currentUserHex = ref.hex;
             this.updateLocalInfo();
             console.log(this.currentUserInfo);
             console.log(this.currentUser)
