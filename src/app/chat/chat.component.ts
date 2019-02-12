@@ -83,16 +83,20 @@ export class ChatComponent implements OnInit {
 
           this.info = info;
           let random = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
-          let giphy = {
+
+          this.current.conversationdata.push({
               url: this.info.data[random].images.downsized.url,
               toOrfrom:this.currentUser,
-              date:(new Date()).toDateString(),
+              date:(new Date().toTimeString()),
               hex:this.currentHex
-          };
-
-          this.current.conversationdata.push(giphy);
+          });
           console.log(this.current.conversationdata);
-          this.db.addChat(giphy);
+          this.db.addChat({
+              url: this.info.data[random].images.downsized.url,
+              toOrfrom:this.currentUser,
+              date:(new Date().toTimeString()),
+              hex:this.currentHex
+          });
 
           this.input = "";
 
