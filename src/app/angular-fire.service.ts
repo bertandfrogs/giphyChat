@@ -46,12 +46,9 @@ export class AngularFireService {
 
           if (data == ref.uid && userFound == false) {
 
-            console.log("match has been found");
 
             //gets data from the user
             userFound = true;
-            console.log(userFound);
-            console.log('the user is found! logging in');
             //logs user in
             //sets current users info
             this.currentUserInfo = ref;
@@ -59,8 +56,6 @@ export class AngularFireService {
             this.currentUser = ref.displayName;
             this.currentUserHex = ref.hex;
             this.updateLocalInfo();
-            console.log(this.currentUserInfo);
-            console.log(this.currentUser)
           }
       });
 
@@ -68,7 +63,6 @@ export class AngularFireService {
 
 
         //push user to firestore
-        console.log(data);
         this.afs.collection('users').add({email: this.afAuth.auth.currentUser.email, displayName: this.afAuth.auth.currentUser.displayName, hex: this.assignUserColor(), imageUrl: this.afAuth.auth.currentUser.photoURL, uid: this.afAuth.auth.currentUser.uid, conversationIds: []}).then((response)=> {
           this.currentDocumentKey = response.id;
           console.log("user not detected");
@@ -206,9 +200,6 @@ export class AngularFireService {
     addTarget(target) {
         this.afs.collection('users').get().subscribe( (doc) => {
 
-            console.log('lookin');
-            console.log(target.length);
-
             for(let i = 0; i < target.length; i++) {
                 doc.forEach(document => {
 
@@ -216,7 +207,6 @@ export class AngularFireService {
 
                     if (target[i] === ref.uid) {
                         ref.conversationIds.push(this.createdId);
-                        console.log(this.createdId);
                         this.addTargetUserInfo(ref, this.createdId, document.id)
                     }
                 });
@@ -241,10 +231,8 @@ export class AngularFireService {
         }
 
         this.afs.collection("users").doc(docId).update(this.targetUserInfo);
-        // console.log(ref);
         //     this.afs.collection('users').doc(ref).get().subscribe(doc => {
         //         this.targetUserInfo = doc.data();
-        //         console.log(this.targetUserInfo);
         //     });
       }
   }

@@ -28,7 +28,6 @@ export class ChatComponent implements OnInit {
   updateloop = setInterval(() => {
       this.db.updateLocalConversation()
       this.updateData();
-      console.log('looped')
   }, 3000);
 
   current = new Conversation(
@@ -49,7 +48,6 @@ export class ChatComponent implements OnInit {
 
       if(!this.afAuth.auth.currentUser){
           this.router.navigate(['/login']);
-          console.log(this.afAuth.auth.currentUser);
       }
       else{
           this.giphyservice.getInfo(this.searchterm).subscribe((info) =>{
@@ -60,7 +58,6 @@ export class ChatComponent implements OnInit {
               this.userHex = [];
               this.currentUser = this.db.currentUser;
               this.currentHex = this.db.currentUserHex;
-              console.log(this.currentHex)
               this.updateData()
               this.db.updateLocalConversation()
               this.currentUsers()
@@ -71,7 +68,6 @@ export class ChatComponent implements OnInit {
 
     ngOnDestroy() {
         if (this.updateloop) {
-            console.log('destroyed loop')
             clearInterval(this.updateloop);
         }
     }
@@ -120,9 +116,7 @@ export class ChatComponent implements OnInit {
           this.userArray = doc.data().conversation.users;
           let admin = doc.data().conversation.admin;
 
-          console.log(this.userArray);
 
-          console.log(this.db.findUserFromUserID(this.userArray[0]))
 
                for (let i = 0; i < this.userArray.length; i++){
 
@@ -133,10 +127,8 @@ export class ChatComponent implements OnInit {
                             let ref = document.data();
 
                                 if(this.userArray[i] === ref.uid){
-                                    console.log(ref.displayName);
                                     this.displayNameArray.push(ref.displayName);
                                     this.userHex.push(ref.hex);
-                                    console.log(this.displayNameArray)
                                 }
                                 if(admin === ref.displayName){
                                     this.displayNameArray.push(admin)
@@ -146,7 +138,6 @@ export class ChatComponent implements OnInit {
                         })
 
                         this.current.deliverto = this.displayNameArray
-                        console.log(this.displayNameArray);
 
                     });
                }
