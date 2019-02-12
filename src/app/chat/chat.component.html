@@ -10,7 +10,7 @@
 
     <div class="messages">
         <ng-container *ngFor="let gif of this.current.conversationdata">
-            <div class="messagefield" [ngClass]="gif.toOrfrom === this.currentUser ? 'to' : 'from'"><h6 [ngStyle]="{'color' : gif.hex}">{{gif.date | date:'yyyy-MM-dd HH:mm:ss' }}</h6><img src="{{gif.url}}" alt="{{searchterm}}" class="gif"></div>
+            <div class="messagefield" [ngClass]="gif.toOrfrom === this.currentUser ? 'to' : 'from'"><h6 [ngStyle]="{'color' : gif.hex}">{{gif.date}}</h6><img src="{{gif.url}}" alt="{{searchterm}}" class="gif"></div>
         </ng-container>
         <div class="spacer"></div>
     </div>
