@@ -129,7 +129,7 @@ export class AngularFireService {
 
   updateLocalConversation(){
     this.afs.collection('conversations').doc(this.currentChatKey).get().subscribe(doc => {
-      this.currentConversationInfo= doc.data();
+      this.currentConversationInfo = doc.data();
       console.log(this.currentConversationInfo);
     })
   }
