@@ -97,6 +97,7 @@ export class ChatComponent implements OnInit {
       this.afs.collection('conversations').doc(this.db.currentChatKey).get().subscribe((doc) => {
           this.test = doc.data().conversation.messages;
           this.current.conversationdata = this.test;
+          console.log(this.current);
       });
   }
 

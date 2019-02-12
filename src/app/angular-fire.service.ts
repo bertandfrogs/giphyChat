@@ -151,21 +151,12 @@ export class AngularFireService {
     for (let conversation of this.currentUserInfo.conversationIds) {
       this.afs.collection('conversations').doc(conversation).get().subscribe( (doc) => {
           console.log(doc.data());
-<<<<<<< HEAD
+
           if(doc.data() !== undefined){
               this.pastChats.push(doc.data());
               console.log(this.pastChats)
           }
       })
-=======
-        if (!doc.data()) {
-            this.pastChats.push({ conversation: { title: 'this chat has been deleted'}});
-        } else  {
-            this.pastChats.push(doc.data());
-        }
-        console.log(this.pastChats);
-      });
->>>>>>> 9f5b5b4831c72beba6d904763bdebabb9aec8e88
     }
 
   }
