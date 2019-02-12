@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
   displayNameArray = [];
   userHex = [];
   updateloop = setInterval(() => {
+      this.db.updateLocalConversation()
       this.updateData();
       console.log('looped')
   }, 3000);
@@ -90,7 +91,7 @@ export class ChatComponent implements OnInit {
           };
 
           this.current.conversationdata.push(giphy);
-
+          console.log(this.current.conversationdata);
           this.db.addChat(giphy);
 
           this.input = "";
@@ -104,6 +105,7 @@ export class ChatComponent implements OnInit {
   updateData(){
       this.afs.collection('conversations').doc(this.db.currentChatKey).get().subscribe((doc) => {
           this.current.conversationdata = doc.data().conversation.messages;
+          console.log(this.current)
       });
   }
 
