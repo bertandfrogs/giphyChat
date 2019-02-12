@@ -25,10 +25,10 @@ export class ChatComponent implements OnInit {
   userArray = [];
   displayNameArray = [];
   userHex = [];
-  updateloop = setInterval(() => {
-      this.updateData();
-      console.log('looped')
-  }, 3000);
+  // updateloop = setInterval(() => {
+  //     this.updateData();
+  //     console.log('looped')
+  // }, 3000);
 
   current = new Conversation(
 
@@ -63,17 +63,17 @@ export class ChatComponent implements OnInit {
               this.updateData()
               this.db.updateLocalConversation()
               this.currentUsers()
-              this.updateloop;
+              // this.updateloop;
           });
       }
   }
 
-    ngOnDestroy() {
-        if (this.updateloop) {
-            console.log('destroyed loop')
-            clearInterval(this.updateloop);
-        }
-    }
+    // ngOnDestroy() {
+    //     if (this.updateloop) {
+    //         console.log('destroyed loop')
+    //         clearInterval(this.updateloop);
+    //     }
+    // }
 
   submit(){
 
