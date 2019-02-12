@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
   );
 
   constructor(private giphyservice: GiphyapiService,
-                private db: AngularFireService,
+                public db: AngularFireService,
                 private afs: AngularFirestore,
                 private afAuth: AngularFireAuth, 
                 private router: Router) {}
@@ -129,7 +129,7 @@ export class ChatComponent implements OnInit {
                             let ref = document.data();
 
                                 if(this.userArray[i] === ref.uid){
-                                    console.log(ref.displayName)
+                                    console.log(ref.displayName);
                                     this.displayNameArray.push(ref.displayName);
                                     this.userHex.push(ref.hex);
                                     console.log(this.displayNameArray)
